@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Principal - Mascotas Perdidas</title>
+    <style>
+        /* Estilos Base y Reinicio */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f3f4f6;
+            color: #1f2937;
+            min-height: 100vh;
+        }
+
+        /* Barra de Navegación Superior */
+        .navbar {
+            background-color: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        /* Foto de perfil arriba a la izquierda (Solicitado) */
+        .user-profile-aside {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #a855f7, #6366f1);
+            border: 2px solid #ffffff;
+            box-shadow: 0 0 0 2px #7c3aed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .user-info-text .user-name {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .user-info-text .user-role {
+            font-size: 0.75rem;
+            color: #10b981;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Logo / Título del Centro/Derecha */
+        .nav-logo h2 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #6366f1, #a855f7);
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Contenedor Principal */
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* Sección de Filtros Completa */
+        .filter-section {
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            margin-bottom: 30px;
+        }
+
+        .filter-section h3 {
+            font-size: 1rem;
+            color: #374151;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 15px;
+            align-items: flex-end;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .filter-group label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #6b7280;
+        }
+
+        .filter-group input {
+            padding: 10px 14px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            background-color: #f9fafb;
+            transition: all 0.3s ease;
+        }
+
+        .filter-group input:focus {
+            outline: none;
+            border-color: #6366f1;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+        }
+
+        .btn-filter-clear {
+            padding: 10px 20px;
+            background-color: #f3f4f6;
+            color: #4b5563;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            height: 41px;
+        }
+
+        .btn-filter-clear:hover {
+            background-color: #e5e7eb;
+        }
+
+        /* Sección del Grid de Perros */
+        .section-title {
+            font-size: 1.5rem;
+            color: #111827;
+            font-weight: 800;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-reportar-mascota {
+            padding: 10px 18px;
+            background: linear-gradient(90deg, #6366f1, #a855f7);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn-reportar-mascota:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Grid de Tarjetas (Mínimo 4) */
+        .dogs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        /* Estructura de la Tarjeta del Perro */
+        .dog-card {
+            background-color: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #f3f4f6;
+        }
+
+        .dog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Foto de la Mascota */
+        .dog-image-container {
+            width: 100%;
+            height: 220px;
+            background-color: #e5e7eb;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            overflow: hidden;
+        }
+
+        .dog-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Alerta visual de "Perdido" sobre la foto */
+        .status-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background-color: #ef4444;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 6px rgba(239, 68, 68, 0.3);
+        }
+
+        /* Información de la Tarjeta (Solo RUAC y Nombre) */
+        .dog-info {
+            padding: 20px;
+        }
+
+        .dog-ruac {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #7c3aed;
+            background-color: #f3e8ff;
+            padding: 3px 8px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .dog-name {
+            font-size: 1.25rem;
+            color: #111827;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        /* Responsividad */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+            .btn-filter-clear {
+                width: 100%;
+            }
+            .section-title {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .btn-reportar-mascota {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barra de Navegación con Foto del Dueño arriba a la izquierda -->
+    <nav class="navbar">
+        <div class="user-profile-aside">
+            <div class="profile-avatar">U</div>
+            <div class="user-info-text">
+                <div class="user-name">Dueño de Mascota</div>
+                <div class="user-role">Panel Activo</div>
+            </div>
+        </div>
+        <div class="nav-logo">
+            <h2>DOG ALERT</h2>
+        </div>
+    </nav>
+
+    <main class="dashboard-container">
+        
+        <!-- Sección de Filtros por cada parámetro solicitado -->
+        <section class="filter-section">
+            <h3>Filtros de Búsqueda</h3>
+            <div class="filter-grid">
+                <!-- Filtro por Nombre -->
+                <div class="filter-group">
+                    <label for="filter-name">Filtrar por Nombre</label>
+                    <input type="text" id="filter-name" placeholder="Ej. Firulais, Max...">
+                </div>
+                <!-- Filtro por RUAC (Folio) -->
+                <div class="filter-group">
+                    <label for="filter-ruac">Filtrar por Folio RUAC</label>
+                    <input type="text" id="filter-ruac" placeholder="Ej. RUAC-DF-12345...">
+                </div>
+                <!-- Botón de Limpieza -->
+                <button type="button" class="btn-filter-clear">Limpiar Filtros</button>
+            </div>
+        </section>
+
+        <!-- Cabecera de la sección de reportes -->
+        <div class="section-title">
+            <h2>Mascotas Reportadas como Perdidas</h2>
+            <button class="btn-reportar-mascota">+ Nuevo Reporte</button>
+        </div>
+
+        <!-- Grid con los 4 perros mínimos requeridos mostrando solo Foto, Nombre y RUAC -->
+        <section class="dogs-grid">
+            
+            <!-- Perro 1 -->
+            <article class="dog-card">
+                <div class="dog-image-container">
+                    <!-- Se usa un marcador de imagen genérico con dimensiones -->
+                    <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=500&auto=format&fit=crop&q=60" alt="Foto de perro extraviado">
+                    <span class="status-badge">Perdido</span>
+                </div>
+                <div class="dog-info">
+                    <span class="dog-ruac">RUAC: BEN-2026-0981</span>
+                    <h3 class="dog-name">Max</h3>
+                </div>
+            </article>
+
+            <!-- Perro 2 -->
+            <article class="dog-card">
+                <div class="dog-image-container">
+                    <img src="https://images.unsplash.com/photo-1537151608828-ea2b117b6221?w=500&auto=format&fit=crop&q=60" alt="Foto de perro extraviado">
+                    <span class="status-badge">Perdido</span>
+                </div>
+                <div class="dog-info">
+                    <span class="dog-ruac">RUAC: BEN-2026-4412</span>
+                    <h3 class="dog-name">Luna</h3>
+                </div>
+            </article>
+
+            <!-- Perro 3 -->
+            <article class="dog-card">
+                <div class="dog-image-container">
+                    <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=500&auto=format&fit=crop&q=60" alt="Foto de perro extraviado">
+                    <span class="status-badge">Perdido</span>
+                </div>
+                <div class="dog-info">
+                    <span class="dog-ruac">RUAC: BEN-2025-7731</span>
+                    <h3 class="dog-name">Rocky</h3>
+                </div>
+            </article>
+
+            <!-- Perro 4 -->
+            <article class="dog-card">
+                <div class="dog-image-container">
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&auto=format&fit=crop&q=60" alt="Foto de perro extraviado">
+                    <span class="status-badge">Perdido</span>
+                </div>
+                <div class="dog-info">
+                    <span class="dog-ruac">RUAC: BEN-2026-1104</span>
+                    <h3 class="dog-name">Bella</h3>
+                </div>
+            </article>
+
+        </section>
+    </main>
+
+</body>
+</html>

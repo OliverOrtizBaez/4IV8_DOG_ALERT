@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Términos y Condiciones</title>
+    <style>
+        /* Estilos Base y Paleta Viva */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed, #c084fc);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 30px 20px;
+        }
+
+        /* Contenedor Principal */
+        .terms-container {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 700px;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            max-height: 90vh; /* Evita que la tarjeta se salga de la pantalla */
+        }
+
+        /* Encabezado */
+        .terms-header {
+            margin-bottom: 25px;
+            text-align: center;
+            border-bottom: 2px solid #f3f4f6;
+            padding-bottom: 15px;
+        }
+
+        .terms-header h1 {
+            font-size: 2rem;
+            color: #111827;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(90deg, #4f46e5, #a855f7);
+            -webkit-text-fill-color: transparent;
+        }
+
+        .terms-header p {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        /* Caja de Texto con Scroll (Mucho Texto) */
+        .terms-box {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #374151;
+            text-align: justify;
+        }
+
+        /* Personalización de la barra de desplazamiento */
+        .terms-box::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .terms-box::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .terms-box::-webkit-scrollbar-thumb {
+            background: #c084fc;
+            border-radius: 10px;
+        }
+
+        .terms-box::-webkit-scrollbar-thumb:hover {
+            background: #a855f7;
+        }
+
+        /* Títulos dentro del texto legal */
+        .terms-box h3 {
+            color: #111827;
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin: 20px 0 8px 0;
+        }
+
+        .terms-box h3:first-child {
+            margin-top: 0;
+        }
+
+        /* Acciones de Aceptación */
+        .terms-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.9rem;
+            color: #4b5563;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .checkbox-container input {
+            width: 18px;
+            height: 18px;
+            accent-color: #7c3aed;
+            margin-top: 2px;
+            cursor: pointer;
+        }
+
+        /* Botones de Acción */
+        .button-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            border: none;
+        }
+
+        .btn-accept {
+            background: linear-gradient(90deg, #4f46e5, #7c3aed);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+        }
+
+        .btn-accept:hover {
+            background: linear-gradient(90deg, #4338ca, #6d28d9);
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .btn-decline {
+            background-color: #ef4444;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+        }
+
+        .btn-decline:hover {
+            background-color: #dc2626;
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+            transform: translateY(-1px);
+        }
+
+        /* Ajustes Responsivos */
+        @media (max-width: 500px) {
+            .button-group {
+                flex-direction: column;
+            }
+            .terms-container {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="terms-container">
+        
+        <header class="terms-header">
+            <h1>Términos y Condiciones</h1>
+            <p>Por favor, lee y acepta el acuerdo de licencia antes de continuar</p>
+        </header>
+
+        <!-- Caja contenedora con la información legal detallada -->
+        <div class="terms-box">
+            <h3>1. Aceptación de los Términos</h3>
+            <p>Al registrarse, acceder o utilizar nuestra plataforma web de reporte y localización de mascotas en la comunidad, usted acepta estar sujeto a los presentes Términos y Condiciones de Servicio. Si no está de acuerdo con alguna de las disposiciones aquí descritas, deberá abstenerse de utilizar el sitio web y suspender cualquier interacción de manera inmediata.</p>
+
+            <h3>2. Descripción del Servicio</h3>
+            <p>Nuestra plataforma funciona como una red de apoyo comunitario digital diseñada para facilitar el reporte, difusión y rastreo de animales de compañía extraviados o encontrados dentro de la delimitación territorial establecida. El servicio incluye herramientas visuales, formularios de registro detallados y mapas de geolocalización basados en los datos provistos voluntariamente por los usuarios.</p>
+
+            <h3>3. Obligaciones y Comportamiento del Usuario</h3>
+            <p>Usted se compromete a hacer un uso legítimo, verídico y responsable de las herramientas de la plataforma. Específicamente, queda estrictamente prohibido:</p>
+            <p>• Publicar información falsa, engañosa, malintencionada o carente de sustento sobre mascotas perdidas o encontradas.</p>
+            <p>• Subir imágenes, fotografías o avatares de perfil que infrinjan derechos de autor, propiedad intelectual o que contengan contenido explícito, inapropiado, violento o ajeno a la temática de la plataforma.</p>
+            <p>• Suplantar la identidad de cualquier otra persona física, entidad colectiva, brigada vecinal o autoridad local.</p>
+            <p>• Utilizar los datos de contacto proporcionados por otros miembros del sitio para fines comerciales, publicitarios (SPAM), de acoso, extorsión o conductas ilícitas.</p>
+            <p>• Todo perro sera...</p>
+
+
+            <h3>4. Privacidad, Tratamiento de Datos y Geolocalización</h3>
+            <p>La seguridad de sus datos es fundamental para nosotros. Toda la información recopilada en los formularios previos de registro (tales como nombres, apellidos, correo electrónico y ubicaciones generales o de alcaldías) será tratada de estricta conformidad con nuestra Política de Privacidad vigente. Al reportar una mascota extraviada, usted consiente explícitamente que ciertos datos específicos del reporte (como las calles de referencia o la última ubicación conocida del animal) sean visibles públicamente con el fin exclusivo de agilizar el proceso de búsqueda comunitaria.</p>
+
+            <h3>5. Responsabilidad por Contenido de Terceros</h3>
+            <p>Dado que la plataforma se alimenta de reportes generados de forma descentralizada por la comunidad, los administradores del sitio no se hacen responsables de la precisión absoluta de los datos publicados, ni de los acuerdos económicos independientes (como recompensas) que los usuarios decidan fijar entre sí. Nos reservamos el derecho irrevocable de moderar, editar, suspender o eliminar permanentemente cualquier publicación o cuenta de usuario que viole este reglamento.</p>
+
+            <h3>6. Modificaciones de los Términos</h3>
+            <p>Nos reservamos el derecho de actualizar o modificar estas condiciones en cualquier momento y sin previo aviso para adaptarnos a nuevas normativas legales o mejoras técnicas del sistema. Los cambios surtirán efecto inmediatamente después de su publicación en este apartado web.</p>
+        </div>
+
+        <!-- Acciones del Formulario -->
+        <form action="#" method="POST" class="terms-actions">
+            
+            <label class="checkbox-container">
+                <input type="checkbox" id="agree" name="agree" required>
+                <span>He leído detenidamente, comprendo en su totalidad y acepto de manera voluntaria cada uno de los puntos expuestos en los Términos y Condiciones de Servicio.</span>
+            </label>
+
+            <div class="button-group">
+                <button type="button" class="btn btn-decline" onclick="alert('Debes aceptar los términos para usar la aplicación.')">Rechazar</button>
+                <button type="submit" class="btn btn-accept">Aceptar y Continuar</button>
+            </div>
+        </form>
+
+    </main>
+
+</body>
+</html>
