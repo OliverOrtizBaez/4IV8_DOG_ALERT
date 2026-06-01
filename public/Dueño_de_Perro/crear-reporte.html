@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crear Reporte · DOG ALERT</title>
+  <link rel="stylesheet" href="./css/crear_reporte_style.css">
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Fuente -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <button class="btn-icon" id="btn-back">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 5l-7 7 7 7"/>
+      </svg>
+    </button>
+    <div class="header-info">
+      <p class="header-title">Crear Reporte de Pérdida</p>
+      <p class="header-sub hidden" id="header-sub"></p>
+    </div>
+    <div class="progress-dots hidden" id="progress-dots">
+      <div class="pdot" id="pd0"></div>
+      <div class="pdot" id="pd1"></div>
+      <div class="pdot" id="pd2"></div>
+      <div class="pdot" id="pd3"></div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="inner">
+
+      <div id="paso1">
+        <p style="font-size:13px;color:#64748b;margin-bottom:4px;">
+          Selecciona la mascota que quieres reportar como perdida.
+        </p>
+        <div id="lista-mascotas"></div>
+      </div>
+
+      <div id="paso2" class="hidden">
+
+        <div class="mascota-chip" id="chip-mascota">
+          <div class="mascota-chip-thumb" id="chip-thumb"></div>
+          <div>
+            <p class="mascota-chip-nombre" id="chip-nombre"></p>
+            <p class="mascota-chip-sub"    id="chip-sub"></p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="label-row">
+            <span class="label-text">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              Fecha de los hechos
+            </span>
+          </div>
+          <input type="date" class="input-base" id="fecha" />
+          <p style="font-size:11px;color:#94a3b8;margin-top:6px;">No puede ser mayor a un año atrás ni fecha futura.</p>
+        </div>
+
+        <div class="card">
+          <div class="label-row">
+            <span class="label-text">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+              Resumen de los hechos
+            </span>
+            <span class="label-count" id="resumen-count">0/100</span>
+          </div>
+          <textarea class="input-base" id="resumen" rows="4" maxlength="100"
+            placeholder="Describe brevemente cómo y dónde desapareció tu mascota..."></textarea>
+        </div>
+
+        <div class="alert-error hidden" id="error-p2">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0">
+            <circle cx="12" cy="12" r="10"/><path stroke-linecap="round" d="M12 8v4M12 16h.01"/>
+          </svg>
+          <span id="error-p2-msg"></span>
+        </div>
+
+        <button class="btn-black" id="btn-p2">Continuar</button>
+      </div>
+
+      <!-- ══════════════════════════════
+           PASO 3 — UBICACIÓN
+           ══════════════════════════════ -->
+      <div id="paso3" class="hidden">
+
+        <div class="card">
+          <div class="label-row" style="margin-bottom:10px;">
+            <span class="label-text">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+              Última ubicación conocida
+            </span>
+          </div>
+
+          <!-- Buscador -->
+          <div class="map-search-row">
+            <input type="text" class="input-base" id="map-search"
+              placeholder="Buscar calle o colonia en CDMX..."
+              style="height:40px;font-size:13px;" />
+            <button class="btn-buscar" id="btn-buscar">Buscar</button>
+          </div>
+
+          <!-- Mapa -->
+          <div style="position:relative;">
+            <div id="mapa"></div>
+            <div class="toast-map" id="toast-mapa">Solo se permiten ubicaciones dentro de la CDMX</div>
+          </div>
+
+          <p class="map-hint">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+            </svg>
+            Toca el mapa o busca una dirección para colocar el pin
+          </p>
+        </div>
+
+        <!-- Dirección capturada -->
+        <div class="card hidden" id="dir-card">
+          <p class="resumen-title">Dirección capturada</p>
+          <div class="dir-grid">
+            <div class="dir-item"><p class="dir-label">Calle</p>    <p class="dir-val" id="dir-calle"></p></div>
+            <div class="dir-item"><p class="dir-label">Colonia</p>  <p class="dir-val" id="dir-colonia"></p></div>
+            <div class="dir-item"><p class="dir-label">Alcaldía</p> <p class="dir-val" id="dir-alcaldia"></p></div>
+            <div class="dir-item"><p class="dir-label">C.P.</p>     <p class="dir-val" id="dir-cp"></p></div>
+          </div>
+        </div>
+
+        <div class="alert-error hidden" id="error-p3">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0">
+            <circle cx="12" cy="12" r="10"/><path stroke-linecap="round" d="M12 8v4M12 16h.01"/>
+          </svg>
+          <span>Selecciona una ubicación en el mapa.</span>
+        </div>
+
+        <button class="btn-black" id="btn-p3">Continuar</button>
+      </div>
+
+      <!-- ══════════════════════════════
+           PASO 4 — RECOMPENSA
+           ══════════════════════════════ -->
+      <div id="paso4" class="hidden">
+
+        <div class="card" style="gap:16px;display:flex;flex-direction:column;">
+          <div class="label-row" style="margin-bottom:0">
+            <span class="label-text">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+              </svg>
+              Recompensa ofrecida
+            </span>
+          </div>
+
+          <div class="recompensa-monto">
+            <span class="recompensa-num" id="monto-display">$0</span>
+            <span class="recompensa-cur">MXN</span>
+          </div>
+
+          <input type="range" id="slider-recompensa" min="0" max="10000" step="100" value="0" />
+          <div class="range-labels">
+            <span>$0</span><span>$2,500</span><span>$5,000</span><span>$7,500</span><span>$10,000</span>
+          </div>
+
+          <div class="quick-btns" id="quick-btns">
+            <button class="quick-btn active" data-val="0">$0</button>
+            <button class="quick-btn" data-val="500">$500</button>
+            <button class="quick-btn" data-val="1000">$1,000</button>
+            <button class="quick-btn" data-val="2000">$2,000</button>
+            <button class="quick-btn" data-val="5000">$5,000</button>
+          </div>
+
+          <input type="number" class="input-base" id="input-recompensa"
+            min="0" max="10000" value="0" placeholder="Escribe un monto" />
+        </div>
+
+        <div class="resumen-box">
+          <p class="resumen-title">Resumen del reporte</p>
+          <div class="resumen-row"><span class="resumen-lbl">Mascota</span>   <span class="resumen-val" id="r-mascota"></span></div>
+          <div class="resumen-row"><span class="resumen-lbl">Fecha</span>     <span class="resumen-val" id="r-fecha"></span></div>
+          <div class="resumen-row"><span class="resumen-lbl">Ubicación</span> <span class="resumen-val" id="r-ubicacion"></span></div>
+          <div class="resumen-row"><span class="resumen-lbl">Recompensa</span><span class="resumen-val" id="r-recompensa"></span></div>
+          <div class="resumen-row"><span class="resumen-lbl">Válido por</span><span class="resumen-val">60 días</span></div>
+        </div>
+
+        <button class="btn-black" id="btn-p4">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          Publicar reporte
+        </button>
+      </div>
+
+      <!-- ══════════════════════════════
+           ÉXITO
+           ══════════════════════════════ -->
+      <div id="paso-exito" class="hidden">
+        <div class="exito-wrap">
+
+          <div class="exito-icon">
+            <svg width="40" height="40" fill="none" stroke="#22c55e" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+
+          <div>
+            <p class="exito-title">¡Reporte publicado!</p>
+            <p class="exito-desc" id="exito-desc"></p>
+          </div>
+
+          <div class="resumen-box" style="width:100%;text-align:left;">
+            <p class="resumen-title">Detalles del reporte</p>
+            <div class="resumen-row"><span class="resumen-lbl">RUAC</span>       <span class="resumen-val" id="ex-ruac"></span></div>
+            <div class="resumen-row"><span class="resumen-lbl">Ubicación</span>  <span class="resumen-val" id="ex-ubi"></span></div>
+            <div class="resumen-row"><span class="resumen-lbl">Recompensa</span> <span class="resumen-val" id="ex-recompensa"></span></div>
+            <div class="resumen-row"><span class="resumen-lbl">Expira</span>     <span class="resumen-val" id="ex-expira"></span></div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px;width:100%;">
+            <a href="mis-reportes.html" class="btn-black" style="text-decoration:none;">Ver mis reportes</a>
+            <a href="registrar-mascota.html" class="btn-outline" style="text-decoration:none;display:flex;align-items:center;justify-content:center;">Volver al inicio</a>
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- /inner -->
+  </main>
+  <script src="./js/reporte.js"></script>
+  
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nueva Mascota · DOG ALERT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/nueva_mascota_style.css">
+</head>
+<body>
+
+  <header class="header">
+    <button class="btn-icon" onclick="history.back()" title="Regresar">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 5l-7 7 7 7"/>
+      </svg>
+    </button>
+    <div class="header-info">
+      <p class="header-title" id="header-title">Verificar RUAC</p>
+      <p class="header-sub"  id="header-sub">Paso 1 de 2</p>
+    </div>
+    <div class="progress-dots">
+      <div class="dot active" id="dot1"></div>
+      <div class="dot"        id="dot2"></div>
+    </div>
+  </header>
+
+  <!-- Contenido -->
+  <main class="content">
+    <div class="form-wrap">
+
+      <!-- ══════════════════════════
+           PASO 1 — RUAC
+           ══════════════════════════ -->
+      <div id="paso1">
+
+        <div class="card">
+          <div class="field">
+            <p style="font-size:13px;color:#475569;line-height:1.6;margin-bottom:16px;">
+              Ingresa el <strong style="color:#1e293b;">RUAC</strong> de tu mascota.
+              Es un código de <strong>10 caracteres</strong> entre letras y números
+              que identifica oficialmente a tu perro.
+            </p>
+
+            <div class="label">
+              <span class="label-text">RUAC</span>
+              <span class="label-count" id="ruac-count">0/10</span>
+            </div>
+
+            <input
+              id="ruac-input"
+              class="ruac-input"
+              type="text"
+              maxlength="10"
+              placeholder="Ej. ABCD123456"
+              autocomplete="off"
+            />
+
+            <p id="ruac-hint" style="font-size:11px;color:#94a3b8;margin-top:6px;">
+              Letras (A–Z) y números (0–9) únicamente
+            </p>
+            <p id="ruac-error" class="hidden" style="font-size:11px;color:#ef4444;margin-top:6px;"></p>
+          </div>
+
+          <button class="btn-black" id="btn-verificar">
+            Verificar y continuar
+          </button>
+        </div>
+
+        <div class="alert alert-amber">
+          <strong>¿Dónde encuentro el RUAC?</strong><br />
+          El RUAC es asignado por el registro oficial de animales de compañía.
+          Si tu mascota no tiene RUAC, deberás tramitarlo antes de registrarla aquí.
+        </div>
+
+      </div><!-- /paso1 -->
+
+
+      <!-- ══════════════════════════
+           PASO 2 — FORMULARIO
+           ══════════════════════════ -->
+      <div id="paso2" class="hidden">
+
+        <!-- RUAC verificado -->
+        <div class="alert alert-green" id="ruac-ok-badge">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <div>
+            <p style="font-weight:600;font-size:13px;">RUAC verificado</p>
+            <p id="ruac-ok-text" style="font-family:monospace;font-size:12px;"></p>
+          </div>
+        </div>
+
+        <!-- Nombre -->
+        <div class="card">
+          <div class="field">
+            <div class="label">
+              <span class="label-text">Nombre de la mascota</span>
+              <span class="label-count" id="nombre-count">0/20</span>
+            </div>
+            <input type="text" id="nombre" maxlength="20" placeholder="Ej. Max" />
+          </div>
+        </div>
+
+        <!-- Edad y Peso -->
+        <div class="card card-grid2">
+          <div class="field" style="margin-bottom:0">
+            <div class="label"><span class="label-text">Edad (años)</span></div>
+            <input type="number" id="edad" min="0" max="31" placeholder="0 – 31" />
+          </div>
+          <div class="field" style="margin-bottom:0">
+            <div class="label"><span class="label-text">Peso (kg)</span></div>
+            <input type="number" id="peso" min="0" max="111" step="0" placeholder="0 – 111" />
+          </div>
+        </div>
+
+        <!-- Sexo -->
+        <div class="card">
+          <div class="label" style="margin-bottom:10px;">
+            <span class="label-text">Sexo</span>
+          </div>
+          <div class="toggle-group" id="sexo-group">
+            <button class="toggle-btn" data-value="Macho"  data-group="sexo"  data-class="active-blue">Macho</button>
+            <button class="toggle-btn" data-value="Hembra" data-group="sexo"  data-class="active-pink">Hembra</button>
+          </div>
+        </div>
+
+        <!-- Tamaño -->
+        <div class="card">
+          <div class="label" style="margin-bottom:10px;">
+            <span class="label-text">Tamaño</span>
+          </div>
+          <div class="toggle-group" id="tamaño-group">
+            <button class="toggle-btn" data-value="Chico"   data-group="tamaño">Chico</button>
+            <button class="toggle-btn" data-value="Mediano" data-group="tamaño">Mediano</button>
+            <button class="toggle-btn" data-value="Grande"  data-group="tamaño">Grande</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="field">
+            <div class="label"><span class="label-text">Raza</span></div>
+            <select id="raza">
+              <option value="">Selecciona la raza</option>
+            </select>
+          </div>
+          <div class="field">
+            <div class="label"><span class="label-text">Tipo de pelaje</span></div>
+            <select id="pelaje">
+              <option value="">Selecciona el tipo de pelaje</option>
+            </select>
+          </div>
+          <div class="field">
+            <div class="label"><span class="label-text">Color de ojos</span></div>
+            <select id="colorOjos">
+              <option value="">Selecciona el color de ojos</option>
+            </select>
+          </div>
+          <div class="field" style="margin-bottom:0">
+            <div class="label"><span class="label-text">Color de pelaje</span></div>
+            <select id="colorPelaje">
+              <option value="">Selecciona el color de pelaje</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Señas particulares -->
+        <div class="card">
+          <div class="field" style="margin-bottom:0">
+            <div class="label">
+              <span class="label-text">Señas particulares</span>
+              <span class="label-count" id="señas-count">0/40</span>
+            </div>
+            <textarea id="señas" rows="3" maxlength="40"
+              placeholder="Ej. Mancha blanca en la oreja derecha, cicatriz en lomo..."></textarea>
+          </div>
+        </div>
+
+        <!-- Collar -->
+        <div class="card">
+          <div class="label" style="margin-bottom:10px;">
+            <span class="label-text">¿Tiene collar?</span>
+          </div>
+          <div class="toggle-group" id="collar-group">
+            <button class="toggle-btn" data-value="Sí"   data-group="collar">Sí</button>
+            <button class="toggle-btn" data-value="No"   data-group="collar">No</button>
+            <button class="toggle-btn" data-value="No sé" data-group="collar">No sé</button>
+          </div>
+        </div>
+
+        <!-- Foto -->
+        <div class="card">
+          <div class="label" style="margin-bottom:10px;">
+            <span class="label-text">
+              Foto de la mascota
+              <span class="label-req"> (obligatoria)</span>
+            </span>
+          </div>
+
+          <div id="foto-preview-wrap" class="foto-preview-wrap hidden">
+            <img id="foto-preview" src="" alt="Vista previa" />
+            <button type="button" class="foto-remove-btn" id="btn-foto-remove" title="Quitar foto">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+          </div>
+
+          <button type="button" class="upload-btn" id="btn-upload">
+            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/>
+            </svg>
+            <span>Subir foto</span>
+            <span>JPG, PNG — máx. 10 MB</span>
+          </button>
+          <input type="file" id="foto-input" accept="image/*" class="hidden" />
+        </div>
+
+        <!-- Error -->
+        <div id="form-error" class="alert alert-red hidden"></div>
+
+        <!-- Guardar -->
+        <button class="btn-black" id="btn-guardar">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          Finalizar registro
+        </button>
+
+        <div style="height:24px"></div>
+
+      </div><!-- /paso2 -->
+
+    </div><!-- /form-wrap -->
+  </main>
+
+  <script src="./js/nuevamascota.js"></script>
+</body>
+</html>

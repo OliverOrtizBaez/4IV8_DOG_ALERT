@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DOG ALERT — Editar Perfil</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <button class="btn-back" onclick="history.back()" title="Volver">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+      </svg>
+    </button>
+    <h1 class="header-title">Editar Perfil</h1>
+  </header>
+
+  <!-- CONTENIDO -->
+  <div class="page">
+    <form id="perfil-form" novalidate>
+
+      <!-- Foto de perfil -->
+      <div class="section">
+        <div class="avatar-wrap">
+          <div class="avatar" id="avatar-preview">
+            <svg viewBox="0 0 48 48" fill="none" id="avatar-placeholder">
+              <circle cx="24" cy="24" r="24" fill="#e2e8f0"/>
+              <circle cx="24" cy="19" r="8" fill="#94a3b8"/>
+              <ellipse cx="24" cy="40" rx="14" ry="10" fill="#94a3b8"/>
+            </svg>
+            <img id="avatar-img" src="" alt="Foto de perfil" style="display:none;" />
+          </div>
+          <button type="button" class="btn-camara" id="btn-camara" title="Cambiar foto">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+              <circle cx="12" cy="13" r="4"/>
+            </svg>
+          </button>
+          <input type="file" id="input-foto" accept="image/*" style="display:none;" />
+        </div>
+        <p class="avatar-hint">Toca el ícono para cambiar tu foto</p>
+      </div>
+
+      <!-- Datos personales -->
+      <div class="section">
+        <h2 class="section-title">Datos personales</h2>
+
+        <div class="field">
+          <label for="nombre">Nombre</label>
+          <div class="input-wrap">
+            <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+            <input type="text" id="nombre" placeholder="Tu nombre" maxlength="40" value="Usuario" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" value="usuario@ejemplo.com" disabled class="input-disabled" />
+          <p class="field-hint">El correo no se puede modificar</p>
+        </div>
+      </div>
+
+      <!-- Cambiar contraseña -->
+      <div class="section">
+        <h2 class="section-title">Cambiar contraseña</h2>
+
+        <div class="field">
+          <label for="pass-actual">Contraseña actual</label>
+          <div class="input-wrap">
+            <input type="password" id="pass-actual" placeholder="••••••••" maxlength="32" />
+            <button type="button" class="toggle-pass" data-target="pass-actual">
+              <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+              </svg>
+              <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="pass-nueva">Nueva contraseña</label>
+          <div class="input-wrap">
+            <input type="password" id="pass-nueva" placeholder="••••••••" maxlength="32" />
+            <button type="button" class="toggle-pass" data-target="pass-nueva">
+              <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+              </svg>
+              <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="pass-confirm">Confirmar nueva contraseña</label>
+          <div class="input-wrap">
+            <input type="password" id="pass-confirm" placeholder="••••••••" maxlength="32" />
+            <button type="button" class="toggle-pass" data-target="pass-confirm">
+              <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+              </svg>
+              <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mensaje error/éxito -->
+      <p class="msg-error" id="msg-error"></p>
+      <p class="msg-ok" id="msg-ok"></p>
+
+      <!-- Guardar -->
+      <button type="submit" class="btn-guardar" id="btn-guardar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>
+        </svg>
+        Guardar cambios
+      </button>
+
+      <!-- Zona peligro -->
+      <div class="section danger-zone">
+        <h2 class="section-title danger">Zona de peligro</h2>
+        <p class="danger-desc">Eliminar tu cuenta es permanente. Todos tus reportes y datos serán borrados y no podrán recuperarse.</p>
+
+        <div id="delete-step-1">
+          <button type="button" class="btn-eliminar" id="btn-eliminar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/>
+            </svg>
+            Eliminar cuenta
+          </button>
+        </div>
+
+        <div id="delete-step-2" style="display:none;">
+          <p class="confirm-msg">¿Estás seguro? Esta acción no se puede deshacer.</p>
+          <div class="confirm-btns">
+            <button type="button" class="btn-cancelar" id="btn-cancelar">Cancelar</button>
+            <button type="button" class="btn-confirmar-delete" id="btn-confirmar-delete">Sí, eliminar</button>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <script src="./js/main.js"></script>
+</body>
+</html>

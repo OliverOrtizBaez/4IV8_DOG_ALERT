@@ -1,0 +1,118 @@
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, sans-serif; background: #f8fafc; min-height: 100vh; display: flex; flex-direction: column; color: #1e293b; }
+
+  /* Header */
+  .header {
+    background: #fff; border-bottom: 1px solid #e2e8f0;
+    padding: 12px 16px; display: flex; align-items: center; gap: 12px;
+    position: sticky; top: 0; z-index: 10;
+  }
+  .btn-back {
+    width: 36px; height: 36px; border-radius: 10px; border: none;
+    background: transparent; cursor: pointer; display: flex;
+    align-items: center; justify-content: center; color: #475569;
+    transition: background .15s; flex-shrink: 0;
+  }
+  .btn-back:hover { background: #f1f5f9; }
+  .header-text { flex: 1; }
+  .header-text h1 { font-size: 16px; font-weight: 600; color: #1e293b; line-height: 1.2; }
+  .header-text p { font-size: 12px; color: #94a3b8; margin-top: 1px; }
+  .step-dots { display: flex; align-items: center; gap: 6px; margin-left: auto; }
+  .dot {
+    height: 8px; border-radius: 999px; background: #e2e8f0;
+    transition: width .3s, background .3s;
+  }
+  .dot.active { width: 20px; background: #0f172a; }
+  .dot.done { width: 8px; background: #cbd5e1; }
+  .dot.inactive { width: 8px; background: #e2e8f0; }
+
+  /* Main */
+  .main { flex: 1; display: flex; justify-content: center; padding: 24px 16px; }
+  .inner { width: 100%; max-width: 480px; }
+
+  /* Step 1 – list */
+  .step-label { font-size: 13px; color: #64748b; margin-bottom: 16px; }
+  .tipo-list { display: flex; flex-direction: column; gap: 10px; }
+  .tipo-btn {
+    width: 100%; background: #fff; border: 1px solid #e2e8f0;
+    border-radius: 16px; padding: 14px 16px;
+    display: flex; align-items: center; gap: 14px;
+    cursor: pointer; text-align: left; transition: border-color .15s, box-shadow .15s;
+  }
+  .tipo-btn:hover { border-color: #94a3b8; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+  .tipo-icon {
+    width: 40px; height: 40px; border-radius: 12px; background: #f1f5f9;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: background .15s; color: #475569;
+  }
+  .tipo-btn:hover .tipo-icon { background: #e2e8f0; }
+  .tipo-text { flex: 1; min-width: 0; }
+  .tipo-text .title { font-size: 14px; font-weight: 500; color: #1e293b; }
+  .tipo-text .desc { font-size: 12px; color: #94a3b8; margin-top: 2px; }
+  .chevron { color: #cbd5e1; flex-shrink: 0; transition: color .15s; }
+  .tipo-btn:hover .chevron { color: #64748b; }
+
+  /* Step 2 – detail */
+  .selected-card {
+    background: #fff; border: 1px solid #e2e8f0; border-radius: 16px;
+    padding: 14px 16px; display: flex; align-items: center; gap: 12px; margin-bottom: 12px;
+  }
+  .selected-icon {
+    width: 40px; height: 40px; border-radius: 12px; background: #f1f5f9;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #475569;
+  }
+  .selected-text .title { font-size: 14px; font-weight: 500; color: #1e293b; }
+  .selected-text .desc { font-size: 12px; color: #94a3b8; margin-top: 2px; }
+  .detail-card {
+    background: #fff; border: 1px solid #e2e8f0; border-radius: 16px;
+    padding: 16px; margin-bottom: 12px;
+  }
+  .detail-card label {
+    display: block; font-size: 11px; font-weight: 600; color: #94a3b8;
+    text-transform: uppercase; letter-spacing: .06em; margin-bottom: 10px;
+  }
+  .detail-card textarea {
+    width: 100%; font-size: 13px; color: #334155; background: #f8fafc;
+    border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 12px;
+    resize: none; font-family: inherit; line-height: 1.5;
+    transition: border-color .15s; outline: none;
+  }
+  .detail-card textarea:focus { border-color: #94a3b8; }
+  .detail-card textarea::placeholder { color: #cbd5e1; }
+  .btn-enviar {
+    width: 100%; height: 44px; background: #0f172a; color: #fff;
+    border: none; border-radius: 12px; font-size: 14px; font-weight: 500;
+    cursor: pointer; transition: background .15s; margin-bottom: 8px;
+  }
+  .btn-enviar:hover { background: #1e293b; }
+  .btn-cambiar {
+    width: 100%; height: 40px; background: transparent; border: none;
+    font-size: 13px; color: #94a3b8; cursor: pointer; transition: color .15s;
+  }
+  .btn-cambiar:hover { color: #475569; }
+
+  /* Step 3 – success */
+  .success {
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center; padding: 60px 0; gap: 16px;
+  }
+  .success-icon {
+    width: 64px; height: 64px; border-radius: 50%; background: #f1f5f9;
+    display: flex; align-items: center; justify-content: center; color: #334155;
+  }
+  .success h2 { font-size: 18px; font-weight: 600; color: #1e293b; }
+  .success p { font-size: 13px; color: #94a3b8; max-width: 260px; line-height: 1.6; }
+  .success p span { color: #475569; font-weight: 500; }
+  .btn-volver {
+    margin-top: 8px; padding: 10px 24px; background: #0f172a; color: #fff;
+    border: none; border-radius: 12px; font-size: 13px; font-weight: 500;
+    cursor: pointer; transition: background .15s; text-decoration: none;
+    display: inline-block;
+  }
+  .btn-volver:hover { background: #1e293b; }
+
+  /* Hidden */
+  .hidden { display: none !important; }
+
+  svg { display: inline-block; vertical-align: middle; }

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DOG ALERT — Crear Cuenta</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+
+  <img class="bg-foto" src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1080&q=80" alt="Fondo" />
+  <div class="bg-overlay"></div>
+
+  <div class="corner-text">
+    <p class="corner-sub">Comunidad Dog Alert</p>
+    <h2 class="corner-title">Únete a la red más grande de recuperación de mascotas.</h2>
+  </div>
+
+  <div class="card-wrapper">
+    <div class="card">
+
+      <div class="logo-block">
+        <img src="../login/img/logo.png" alt="DOG ALERT" class="logo-img" />
+        <h1 class="card-title">Crear Cuenta</h1>
+        <p class="card-sub">Ingresa tus datos para comenzar</p>
+      </div>
+
+      <form id="register-form" action="../tipo_de_usuario/tipodeusuario.html" method="POST" novalidate>
+
+        <!-- Nombre -->
+        <div class="field">
+          <div class="field-header">
+            <label for="fullName">Nombre Completo</label>
+            <span class="char-count" id="count-name">0/20</span>
+          </div>
+          <div class="input-icon-wrap">
+            <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+            <input type="text" id="fullName" name="fullName" placeholder="Ej. Juan Pérez" maxlength="20" required />
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="field">
+          <label for="email">Correo Electrónico</label>
+          <div class="input-icon-wrap">
+            <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+            </svg>
+            <input type="email" id="email" name="email" placeholder="correo@ejemplo.com" required />
+          </div>
+        </div>
+
+        <!-- Contraseñas -->
+        <div class="fields-row">
+          <div class="field">
+            <div class="field-header">
+              <label for="password">Contraseña</label>
+              <span class="char-count" id="count-pass">0/20</span>
+            </div>
+            <div class="input-icon-wrap">
+              <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+              <input type="password" id="password" name="password" placeholder="8-20 carac." minlength="8" maxlength="20" required />
+              <button type="button" class="toggle-pass" id="toggle-pass">
+                <svg id="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                </svg>
+                <svg id="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                  <line x1="1" y1="1" x2="23" y2="23"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="confirmPassword">Confirmar</label>
+            <div class="input-icon-wrap">
+              <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              <input type="password" id="confirmPassword" name="confirmPassword" placeholder="••••••••" maxlength="20" required />
+            </div>
+          </div>
+        </div>
+
+        <!-- Requisitos de contraseña -->
+        <ul class="pass-rules" id="pass-rules">
+          <li id="rule-len">Entre 8 y 20 caracteres</li>
+          <li id="rule-upper">Al menos una mayúscula</li>
+          <li id="rule-lower">Al menos una minúscula</li>
+          <li id="rule-num">Al menos un número</li>
+          <li id="rule-special">Al menos un carácter especial (!@#$...)</li>
+          <li id="rule-space">Sin espacios</li>
+        </ul>
+
+        <!-- Términos -->
+        <div class="terms-row">
+          <input type="checkbox" id="terms" />
+          <label for="terms">
+            Acepto los
+            <a href="../term_and_privacy/term.html" target="_blank">Términos del Sabueso</a>
+            y la
+            <a href="../term_and_privacy/priva.html" target="_blank">Política del Rastro</a>.
+          </label>
+        </div>
+
+        <p class="error-msg" id="error-msg"></p>
+
+        <button type="submit" id="btn-submit" class="btn-registrar">Registrarme</button>
+
+      </form>
+
+      <div class="card-footer">
+        <p>¿Ya tienes una cuenta? <a href="../login/login.html">Inicia Sesión</a></p>
+        <a href="../menu_sinusuario/menu_sinusuario.html" class="back-link">Volver al Inicio</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="./js/main.js"></script>
+</body>
+</html>

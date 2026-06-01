@@ -1,0 +1,57 @@
+/* 1. Reset básico y centrado absoluto en la pantalla */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5; /* Un fondo gris claro para que resalte el cuadrado */
+    
+    /* Estos 3 comandos centran el contenido vertical y horizontalmente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; 
+}
+
+/* 2. El contenedor cuadrado en el medio */
+.privacidad {
+    background-color: #ffffff; /* Fondo blanco para el cuadro */
+    width: 100%;
+    max-width: 500px; /* Ancho máximo para que parezca un cuadrado perfecto */
+    padding: 30px;
+    border-radius: 12px; /* Esquinas ligeramente redondeadas para estética moderna */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Sombra suave para darle profundidad */
+    box-sizing: border-box;
+}
+
+/* 3. Estilos del título */
+.privacidad h1 {
+    font-size: 24px;
+    color: #333333;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #ffca28; /* Una línea coqueta color "dog-friendly" */
+    padding-bottom: 10px;
+}
+
+/* 4. Estilos de la lista de términos */
+.lista-terminos {
+    list-style-type: disc; /* Viñetas normales (puedes usar 'square' o 'none' si prefieres) */
+    padding-left: 20px; /* Espacio para que se vean los puntos de la lista */
+    margin: 0;
+}
+
+.lista-terminos li {
+    margin-bottom: 20px; /* Separación entre cada término */
+    font-size: 14px;
+    color: #555555;
+    line-height: 1.6; /* Mejora la lectura del texto */
+}
+
+/* Estilo para los títulos de los términos */
+.lista-terminos strong {
+    color: #111111;
+    font-size: 15px;
+    display: inline-block;
+    margin-bottom: 5px;
+}

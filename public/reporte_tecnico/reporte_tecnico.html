@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reportar Error Técnico – Dog Alert</title>
+<link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <button class="btn-back" id="btn-back">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M19 12H5M12 5l-7 7 7 7"/>
+    </svg>
+  </button>
+  <div class="header-text">
+    <h1>Reportar Error Técnico</h1>
+    <p id="header-sub" class="hidden"></p>
+  </div>
+  <div class="step-dots" id="step-dots">
+    <div class="dot active" id="dot-1"></div>
+    <div class="dot inactive" id="dot-2"></div>
+  </div>
+</div>
+
+<!-- Main -->
+<div class="main">
+  <div class="inner">
+
+    <!-- Paso 1: elegir tipo -->
+    <div id="paso-elegir">
+      <p class="step-label">¿Qué tipo de error quieres reportar?</p>
+      <div class="tipo-list" id="tipo-list"></div>
+    </div>
+
+    <!-- Paso 2: detalle -->
+    <div id="paso-detalle" class="hidden">
+      <div class="selected-card">
+        <div class="selected-icon" id="selected-icon"></div>
+        <div class="selected-text">
+          <div class="title" id="selected-title"></div>
+          <div class="desc" id="selected-desc"></div>
+        </div>
+      </div>
+      <div class="detail-card">
+        <label for="textarea-detalle">Describe el problema</label>
+        <textarea
+          id="textarea-detalle"
+          rows="5"
+          placeholder="Explica qué pasó, cuándo ocurrió y qué estabas haciendo..."
+        ></textarea>
+      </div>
+      <button class="btn-enviar" id="btn-enviar">Enviar reporte</button>
+      <button class="btn-cambiar" id="btn-cambiar">Cambiar tipo de error</button>
+    </div>
+
+    <!-- Paso 3: enviado -->
+    <div id="paso-enviado" class="hidden">
+      <div class="success">
+        <div class="success-icon">
+          <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <h2>Reporte enviado</h2>
+        <p>Tu reporte de <span id="success-tipo"></span> fue recibido. Lo revisaremos lo antes posible.</p>
+        <a href="javascript:history.back()" class="btn-volver">Volver al menú</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="./js/main.js"></script>
+</body>
+</html>

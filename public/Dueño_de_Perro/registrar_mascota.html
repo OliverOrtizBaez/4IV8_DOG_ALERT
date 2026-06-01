@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mis Mascotas · DOG ALERT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/registrar_mascota_style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <button class="btn-icon" onclick="history.back()" title="Regresar">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 5l-7 7 7 7"/>
+        </svg>
+      </button>
+      <div>
+        <p class="header-title">Mis Mascotas</p>
+        <p class="header-sub" id="conteo">0 / 6 registradas</p>
+      </div>
+    </div>
+
+    <a href="nueva_mascota.html" id="btn-nueva" class="btn-primary">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12h14"/>
+      </svg>
+      Nueva mascota
+    </a>
+  </header>
+
+  <!-- Contenido -->
+  <main class="content">
+    <!-- Estado vacío -->
+    <div class="empty-state" id="empty" style="display:none">
+      <div class="empty-icon">
+        <svg width="40" height="40" fill="none" stroke="#cbd5e1" stroke-width="1.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 0c1.5 2 2.5 4 2.5 6.5 0 1.4-.5 2.7-1.3 3.7M12 2c-1.5 2-2.5 4-2.5 6.5 0 1.4.5 2.7 1.3 3.7m0 0C9.5 13.5 8 15.5 8 18m4-5.8c2 .8 3.5 2.8 3.5 5.8"/>
+        </svg>
+      </div>
+      <div>
+        <p class="empty-title">Aún no tienes mascotas registradas</p>
+        <p class="empty-desc">Registra a tu perro para poder hacer reportes</p>
+      </div>
+      <a href="nueva_mascota.html" class="btn-primary-lg">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12h14"/>
+        </svg>
+        Registrar mi primera mascota
+      </a>
+    </div>
+
+    <!-- Grid -->
+    <div class="grid" id="grid"></div>
+  </main>
+
+  <script src="./js/registrarmascota.js"></script>
+</body>
+</html>

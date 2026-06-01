@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DOG ALERT — Menú Dueño</title>
+  <link rel="stylesheet" href="./css/menu_style.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="header-stats">
+        <div class="stat-item">
+          <span class="stat-label">Reportes:</span>
+          <span class="stat-badge blue">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Perdidas:</span>
+          <span class="stat-badge red">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Encontradas:</span>
+          <span class="stat-badge green">0</span>
+        </div>
+      </div>
+      <div class="header-logo">
+        <img src="./img/logo.png" alt="DOG ALERT" class="logo-img" />
+        <span class="logo-title">DOG ALERT</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="app-body">
+
+    <!-- SIDEBAR NAV -->
+    <nav class="nav-sidebar" id="nav-sidebar">
+      <div class="nav-sidebar-inner">
+
+        <div class="nav-profile">
+          <div class="nav-profile-top">
+            <button class="avatar-btn" id="avatar-btn" title="Cerrar menú">
+              <svg viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="24" r="24" fill="#e2e8f0"/>
+                <circle cx="24" cy="19" r="8" fill="#94a3b8"/>
+                <ellipse cx="24" cy="40" rx="14" ry="10" fill="#94a3b8"/>
+              </svg>
+            </button>
+            <div class="nav-user-info">
+              <p class="nav-user-name">//usuario</p>
+              <span class="nav-user-badge">DUEÑO DE PERRO</span>
+            </div>
+            <button class="bell-btn" id="bell-btn" title="Notificaciones">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+              </svg>
+              <span class="bell-dot"></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="nav-menu">
+          <p class="nav-section-title">Menú</p>
+          <a href="./registrar_mascota.html" class="nav-item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            Registrar Mascota
+          </a>
+          <a href="./crear-reporte.html" class="nav-item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Crear Reporte de Pérdida
+          </a>
+          <a href="./mis_reportes.html" class="nav-item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Mis Reportes
+          </a>
+          <a href="./mascotas_guardadas.html" class="nav-item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            Mascotas Guardadas
+          </a>
+          <a href="../reporte_tecnico/reporte_tecnico.html" class="nav-item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+            Reportar Error Técnico
+          </a>
+        </div>
+
+        <div class="nav-footer">
+          <a href="../editar_perfil/editar_perfil.html" class="nav-item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Editar Perfil
+          </a>
+          <a href="../Sin_Usuario/menu_sinusuario.html" class="nav-item active cerrar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Cerrar Sesión
+          </a>
+        </div>
+
+      </div>
+    </nav>
+
+    <!-- Avatar flotante -->
+    <div id="avatar-float" class="avatar-float" style="display:none;">
+      <button class="avatar-btn" id="avatar-btn-float" title="Abrir menú">
+        <svg viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="24" fill="#e2e8f0"/>
+          <circle cx="24" cy="19" r="8" fill="#94a3b8"/>
+          <ellipse cx="24" cy="40" rx="14" ry="10" fill="#94a3b8"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- SIDEBAR FILTROS -->
+    <!-- SIDEBAR FILTROS -->
+    <aside class="filter-sidebar">
+  <div class="filter-header">
+    <div class="filter-title-row">
+      <h3><i class="icon-filters"></i> Filtros</h3>
+      <button class="btn-reset" id="btn-reset">Limpiar</button>
+    </div>
+    <p class="filter-results" id="resultado-conteo">5 resultados</p>
+  </div>
+
+  <div class="filter-group">
+    <label class="filter-label">Estatus</label>
+    <div class="status-options" id="filtro-status-container">
+      <button class="btn-status active" data-value="todos">Todos</button>
+      <button class="btn-status" data-value="perdido">Perdido</button>
+      <button class="btn-status" data-value="encontrado">Encontrado</button>
+    </div>
+  </div>
+
+  <div class="filter-group">
+    <label class="filter-label">Recompensa</label>
+    <div class="price-range-text">
+      <span id="recompensa-min">$0</span> — <span id="recompensa-max">$10,000</span>
+    </div>
+    <div class="range-slider-container">
+      <input type="range" id="filtro-recompensa" min="0" max="10000" value="10000" class="range-slider">
+      <div class="range-labels">
+        <span>$0</span>
+        <span>$10,000</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="filter-group">
+    <label class="filter-label">Raza</label>
+    <div class="search-input-wrapper">
+      <input type="text" id="buscar-raza-input" placeholder="Buscar raza...">
+    </div>
+    <div class="raza-scroll-container" id="raza-tags-container"></div>
+  </div>
+</aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="main-content">
+      <div class="search-bar-wrapper">
+        <div class="search-bar-container">
+          <div class="search-bar">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input type="text" id="search-input" class="search-input" placeholder="Buscar por RUAC (MAYUS/NUM)..." maxlength="10" />
+            <button id="btn-clear-search" class="btn-clear" style="display:none;">✕</button>
+          </div>
+          <p class="search-hint">RUAC: 5 letras + 5 números &nbsp;|&nbsp; Folio: FL-YYYY-NNN</p>
+        </div>
+      </div>
+
+      <div class="pet-grid" id="pet-grid"></div>
+    </main>
+
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <div class="modal-img" id="modal-foto"></div>
+      <div class="modal-body">
+        <div class="modal-top">
+          <div>
+            <h2 class="modal-name" id="modal-nombre"></h2>
+            <div id="modal-estado" style="margin-top:4px;"></div>
+          </div>
+          <button class="modal-close" onclick="cerrarModal()">✕</button>
+        </div>
+        <div class="modal-info-grid">
+          <div class="modal-info-item"><label>Raza</label><p id="modal-raza"></p></div>
+          <div class="modal-info-item"><label>Folio</label><p id="modal-folio"></p></div>
+          <div class="modal-info-item"><label>RUAC</label><p id="modal-ruac"></p></div>
+          <div class="modal-info-item"><label>Ubicación</label><p id="modal-ubicacion"></p></div>
+        </div>
+        <p class="modal-desc" id="modal-desc"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popover notificaciones -->
+  <div class="notif-popover" id="notif-popover" style="display:none;">
+    <div class="notif-header">
+      <span>🔔 Notificaciones</span>
+      <button onclick="cerrarNotif()">✕</button>
+    </div>
+    <p class="notif-msg">No tienes notificaciones nuevas.</p>
+  </div>
+
+  <script src="./js/menu.js"></script>
+</body>
+</html>

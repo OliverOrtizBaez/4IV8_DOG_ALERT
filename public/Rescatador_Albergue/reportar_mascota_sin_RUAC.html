@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reportar sin RUAC – Dog Alert</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="stylesheet" href="./css/reporte_sin_RUAC.css">
+</head>
+<body>
+
+<!-- FORM SCREENS -->
+<div id="screens">
+  <!-- Header -->
+  <div class="header">
+    <button class="btn-back" id="btn-back">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M19 12H5M12 5l-7 7 7 7"/>
+      </svg>
+    </button>
+    <div>
+      <h1>Reportar mascota sin RUAC</h1>
+      <p>Mascota encontrada o extraviada sin identificación</p>
+    </div>
+  </div>
+
+  <!-- Step bar -->
+  <div class="step-bar">
+    <div class="step-track" id="step-track"></div>
+  </div>
+
+  <!-- Card content -->
+  <div class="main">
+    <div class="card">
+
+      <!-- PASO 1: Datos -->
+      <div id="paso-1">
+        <h2>Datos de la mascota</h2>
+
+        <!-- Nombre -->
+        <div class="campo">
+          <label>Nombre</label>
+          <input type="text" id="nombre" maxlength="20" placeholder="Nombre de la mascota" />
+          <label class="check-row" style="margin-top:4px" onclick="toggleSinNombre()">
+            <div class="check-box" id="cb-sin-nombre">
+              <svg width="12" height="12" fill="none" stroke="#fff" stroke-width="3" viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <span>No hay nombre visible</span>
+          </label>
+          <p class="char-count"><span id="nombre-len">0</span>/20</p>
+        </div>
+
+        <!-- Sexo -->
+        <div class="campo">
+          <label>Sexo</label>
+          <div class="toggle-grp">
+            <button class="toggle-btn" data-grp="sexo" data-val="macho" onclick="setToggle('sexo','macho')">Macho</button>
+            <button class="toggle-btn" data-grp="sexo" data-val="hembra" onclick="setToggle('sexo','hembra')">Hembra</button>
+          </div>
+        </div>
+
+        <!-- Raza -->
+        <div class="campo">
+          <label>Raza</label>
+          <select id="raza">
+            <option value="">Selecciona una raza</option>
+            <option>Mestizo</option><option>Labrador Retriever</option>
+            <option>Pastor Alemán</option><option>Golden Retriever</option>
+            <option>Bulldog</option><option>Beagle</option><option>Poodle</option>
+            <option>Chihuahua</option><option>Rottweiler</option><option>Boxer</option>
+            <option>Dálmata</option><option>Husky Siberiano</option><option>Shih Tzu</option>
+            <option>Pomerania</option><option>Schnauzer</option><option>Cocker Spaniel</option>
+            <option>Dóberman</option><option>Border Collie</option><option>Pitbull</option>
+            <option>French Bulldog</option><option>Salchicha</option><option>No identificada</option>
+          </select>
+        </div>
+
+        <!-- Pelaje -->
+        <div class="campo">
+          <label>Tipo de pelaje</label>
+          <select id="pelaje">
+            <option value="">Selecciona el pelaje</option>
+            <option>Corto</option><option>Largo</option><option>Rizado</option>
+            <option>Doble capa</option><option>Sin pelo</option>
+          </select>
+        </div>
+
+        <!-- Color pelaje -->
+        <div class="campo">
+          <label>Color de pelaje</label>
+          <select id="color-pelaje">
+            <option value="">Selecciona el color</option>
+            <option>Negro</option><option>Blanco</option><option>Café</option>
+            <option>Dorado</option><option>Gris</option><option>Crema</option>
+            <option>Tricolor</option><option>Bicolor</option><option>Manchado</option><option>Otro</option>
+          </select>
+        </div>
+
+        <!-- Color ojos -->
+        <div class="campo">
+          <label>Color de ojos</label>
+          <select id="color-ojos">
+            <option value="">Selecciona el color</option>
+            <option>Café</option><option>Negro</option><option>Ámbar</option>
+            <option>Azul</option><option>Verde</option><option>Heterocromía</option><option>Otro</option>
+          </select>
+        </div>
+
+        <!-- Tamaño -->
+        <div class="campo">
+          <label>Tamaño</label>
+          <div class="toggle-grp">
+            <button class="toggle-btn" data-grp="tamaño" data-val="pequeño"    onclick="setToggle('tamaño','pequeño')">Pequeño</button>
+            <button class="toggle-btn" data-grp="tamaño" data-val="mediano"    onclick="setToggle('tamaño','mediano')">Mediano</button>
+            <button class="toggle-btn" data-grp="tamaño" data-val="grande"     onclick="setToggle('tamaño','grande')">Grande</button>
+          </div>
+        </div>
+
+        <!-- Peso -->
+        <div class="campo">
+          <label>Peso aproximado (kg) — opcional</label>
+          <div style="display:flex;align-items:center;gap:10px">
+            <input type="number" id="peso" min="0" max="111" step="0" placeholder="ej. 12" style="width:120px" />
+            <span style="font-size:13px;color:#64748b">kg</span>
+          </div>
+        </div>
+
+        <!-- Señas -->
+        <div class="campo">
+          <label>Señas particulares — opcional</label>
+          <textarea id="señas" rows="2" maxlength="40" placeholder="Cicatrices, manchas, marcas especiales..."></textarea>
+          <p class="char-count"><span id="señas-len">0</span>/40</p>
+        </div>
+
+        <!-- Collar -->
+        <div class="campo">
+          <label>¿Trae collar?</label>
+          <div class="toggle-grp">
+            <button class="toggle-btn" data-grp="collar" data-val="si" onclick="setToggle('collar','si')">Sí</button>
+            <button class="toggle-btn" data-grp="collar" data-val="no" onclick="setToggle('collar','no')">No</button>
+          </div>
+        </div>
+
+        <!-- Foto -->
+        <div class="campo">
+          <label>Foto de la mascota — opcional</label>
+          <div id="foto-zone">
+            <div class="upload-zone" onclick="document.getElementById('foto-input').click()">
+              <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+              <p>Subir foto</p>
+              <small>JPG, PNG — máx. 10 MB</small>
+            </div>
+          </div>
+          <input type="file" id="foto-input" accept="image/*" class="hidden" />
+        </div>
+
+        <div class="err-msg" id="err-1"></div>
+        <div class="nav-btns">
+          <button class="btn-sig" onclick="irPaso2()">
+            Siguiente
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 2: Ubicación + resumen -->
+      <div id="paso-2" class="hidden">
+        <h2>Lugar y descripción</h2>
+
+        <div class="campo">
+          <label>Lugar donde fue visto</label>
+          <div id="map"></div>
+          <p class="map-hint">Toca el mapa para colocar el marcador</p>
+          <div class="map-addr" id="map-addr"></div>
+        </div>
+
+        <div class="campo">
+          <label>Resumen de la situación</label>
+          <textarea id="resumen" rows="3" maxlength="100"
+            placeholder="Describe brevemente la situación: dónde estaba, cómo se veía..."></textarea>
+          <p class="char-count"><span id="resumen-len">0</span>/100</p>
+        </div>
+
+        <div class="err-msg" id="err-2"></div>
+        <div class="nav-btns">
+          <button class="btn-ant" onclick="setPaso(1)">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+            Anterior
+          </button>
+          <button class="btn-sig" onclick="irPaso3()">
+            Siguiente
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 3: Recompensa -->
+      <div id="paso-3" class="hidden">
+        <h2>Recompensa</h2>
+        <p style="font-size:13px;color:#64748b;margin-bottom:18px">
+          Si el dueño ha ofrecido una recompensa, indícala aquí. Si no aplica, márcalo.
+        </p>
+
+        <div class="campo">
+          <div class="check-row-card" onclick="toggleNoAplica()">
+            <div class="check-box" id="cb-no-aplica">
+              <svg width="12" height="12" fill="none" stroke="#fff" stroke-width="3" viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <span>No aplica / No hay recompensa</span>
+          </div>
+        </div>
+
+        <div id="reward-section" class="campo">
+          <div class="reward-amount">
+            <span class="label">Monto de recompensa</span>
+            <span><span class="value" id="reward-display">$0</span> <span class="cur">MXN</span></span>
+          </div>
+          <input type="range" id="reward-range" min="0" max="10000" step="100" value="0"
+            oninput="setReward(this.value)" />
+          <div class="quick-btns" style="margin-top:8px">
+            <button class="quick-btn active" data-r="0"    onclick="setReward(0)">Sin monto</button>
+            <button class="quick-btn" data-r="500"   onclick="setReward(500)">$500</button>
+            <button class="quick-btn" data-r="1000"  onclick="setReward(1000)">$1,000</button>
+            <button class="quick-btn" data-r="2000"  onclick="setReward(2000)">$2,000</button>
+            <button class="quick-btn" data-r="5000"  onclick="setReward(5000)">$5,000</button>
+          </div>
+          <input type="number" class="reward-num" id="reward-num" min="0" max="10000"
+            value="0" oninput="setReward(this.value)" style="margin-top:10px" />
+        </div>
+
+        <!-- Summary -->
+        <div class="summary-box">
+          <p class="ttl">Resumen del reporte</p>
+          <div class="summary-img" id="sum-img-wrap">
+            <img id="sum-img" src="" alt="Mascota" />
+          </div>
+          <div class="srow"><span class="slbl">Mascota</span><span class="sval" id="sum-mascota">—</span></div>
+          <div class="srow"><span class="slbl">Sexo / Tamaño</span><span class="sval" id="sum-sextam">—</span></div>
+          <div class="srow"><span class="slbl">Lugar</span><span class="sval" id="sum-lugar">—</span></div>
+          <div class="srow"><span class="slbl">Recompensa</span><span class="sval" id="sum-recompensa">$0 MXN</span></div>
+        </div>
+
+        <div class="nav-btns" style="margin-top:16px">
+          <button class="btn-ant" onclick="setPaso(2)">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+            Anterior
+          </button>
+          <button class="btn-sig" onclick="enviar()">Enviar reporte</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS SCREEN -->
+<div id="exito" class="hidden success-wrap">
+  <div class="success-card">
+    <div id="success-avatar-wrap"></div>
+    <h2>¡Reporte enviado!</h2>
+    <p class="sub">El reporte estará activo 60 días</p>
+    <div class="success-info">
+      <div class="irow">
+        <span class="ilbl">Folio</span>
+        <div class="ival folio-row">
+          <code id="suc-folio"></code>
+          <button class="btn-copy" onclick="copiarFolio()" title="Copiar folio">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+          </button>
+          <span class="copied-label hidden" id="copied-label">Copiado</span>
+        </div>
+      </div>
+      <div class="irow"><span class="ilbl">Mascota</span><span class="ival" id="suc-mascota"></span></div>
+      <div class="irow"><span class="ilbl">Lugar</span><span class="ival" id="suc-lugar"></span></div>
+      <div class="irow"><span class="ilbl">Expira</span><span class="ival" id="suc-expira"></span></div>
+      <div class="irow"><span class="ilbl">Recompensa</span><span class="ival" id="suc-recompensa"></span></div>
+    </div>
+    <div class="success-btns">
+      <button class="btn-primary-full" onclick="history.back()">Ver mis reportes</button>
+      <button class="btn-secondary-full" onclick="history.back()">Volver al menú</button>
+    </div>
+  </div>
+</div>
+
+<script src="./js/reportesinRUAC.js"></script>
+</body>
+</html>

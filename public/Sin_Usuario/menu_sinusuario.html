@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menú Principal</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <div class="header-stats">
+        <div class="stat-item">
+          <span class="stat-label">Reportes:</span>
+          <span class="stat-badge blue">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Perdidas:</span>
+          <span class="stat-badge red">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Encontradas:</span>
+          <span class="stat-badge green">0</span>
+        </div>
+      </div>
+      <div class="header-logo">
+      <img src="./img/logo.png" alt="DOG ALERT" class="logo-img" />
+      <span class="logo-title">DOG ALERT</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="app-body">
+
+    <nav class="nav-sidebar" id="nav-sidebar">
+      <div class="nav-sidebar-inner">
+        <div class="nav-profile">
+          <div class="nav-profile-top">
+            <button class="avatar-btn" id="avatar-btn" title="Cerrar menú">
+              <svg viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="24" r="24" fill="#e2e8f0"/>
+                <circle cx="24" cy="19" r="8" fill="#94a3b8"/>
+                <ellipse cx="24" cy="40" rx="14" ry="10" fill="#94a3b8"/>
+              </svg>
+            </button>
+            <div class="nav-user-info">
+              <p class="nav-user-name">ANONIMO</p>
+              <span class="nav-user-badge">INVITADO</span>
+            </div>
+            <button class="bell-btn" title="Notificaciones">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+              </svg>
+              <span class="bell-dot"></span>
+            </button>
+          </div>
+          <a href="../login/login.html" class="btn-login">Iniciar Sesión</a>
+        </div>
+
+        <div class="nav-menu">
+          <p class="nav-section-title">Menú</p>
+        </div>
+
+        <div class="nav-footer">
+        </div>
+      </div>
+    </nav>
+
+    <div id="avatar-float" class="avatar-float" style="display:none;">
+      <button class="avatar-btn" id="avatar-btn-float" title="Abrir menú">
+        <svg viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="24" fill="#e2e8f0"/>
+          <circle cx="24" cy="19" r="8" fill="#94a3b8"/>
+          <ellipse cx="24" cy="40" rx="14" ry="10" fill="#94a3b8"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- SIDEBAR FILTROS -->
+    <aside class="filter-sidebar">
+  <div class="filter-header">
+    <div class="filter-title-row">
+      <h3><i class="icon-filters"></i> Filtros</h3>
+      <button class="btn-reset" id="btn-reset">Limpiar</button>
+    </div>
+    <p class="filter-results" id="resultado-conteo">5 resultados</p>
+  </div>
+
+  <div class="filter-group">
+    <label class="filter-label">Estatus</label>
+    <div class="status-options" id="filtro-status-container">
+      <button class="btn-status active" data-value="todos">Todos</button>
+      <button class="btn-status" data-value="perdido">Perdido</button>
+      <button class="btn-status" data-value="encontrado">Encontrado</button>
+    </div>
+  </div>
+
+  <div class="filter-group">
+    <label class="filter-label">Recompensa</label>
+    <div class="price-range-text">
+      <span id="recompensa-min">$0</span> — <span id="recompensa-max">$10,000</span>
+    </div>
+    <div class="range-slider-container">
+      <input type="range" id="filtro-recompensa" min="0" max="10000" value="10000" class="range-slider">
+      <div class="range-labels">
+        <span>$0</span>
+        <span>$10,000</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="filter-group">
+    <label class="filter-label">Raza</label>
+    <div class="search-input-wrapper">
+      <input type="text" id="buscar-raza-input" placeholder="Buscar raza...">
+    </div>
+    <div class="raza-scroll-container" id="raza-tags-container"></div>
+  </div>
+</aside>
+
+    <main class="main-content">
+      <div class="search-bar-wrapper">
+        <div class="search-bar-container">
+          <div class="search-bar">
+            <input type="text" id="search-input" class="search-input" placeholder="Buscar por RUAC (MAYUS/NUM)..." maxlength="10" />
+            <button id="btn-clear-search" class="btn-clear">✕</button>
+          </div>
+          <p class="search-hint">RUAC: 5 letras + 5 números &nbsp;|&nbsp; Folio: FL-YYYY-NNN</p>
+        </div>
+      </div>
+      <div class="pet-grid" id="pet-grid"></div>
+    </main>
+  </div>
+
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <div class="modal-img" id="modal-foto"></div>
+      <div class="modal-body">
+        <div class="modal-top">
+          <div>
+            <h2 class="modal-name" id="modal-nombre"></h2>
+            <div id="modal-estado" style="margin-top:4px;"></div>
+          </div>
+          <button class="modal-close" onclick="cerrarModal()">✕</button>
+        </div>
+        <div class="modal-info-grid">
+          <div class="modal-info-item"><label>Raza</label><p id="modal-raza"></p></div>
+          <div class="modal-info-item"><label>Folio</label><p id="modal-folio"></p></div>
+          <div class="modal-info-item"><label>RUAC</label><p id="modal-ruac"></p></div>
+          <div class="modal-info-item"><label>Ubicación</label><p id="modal-ubicacion"></p></div>
+        </div>
+        <p class="modal-desc" id="modal-desc"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

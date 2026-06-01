@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mascotas Guardadas – Dog Alert</title>
+<link rel="stylesheet" href="./css/mascotas_guardadas.css">
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <button class="btn-back" onclick="history.back()">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M19 12H5M12 5l-7 7 7 7"/>
+    </svg>
+  </button>
+  <div class="header-text">
+    <h1>Mascotas Guardadas</h1>
+    <p id="cap-text">0 de 10 guardadas</p>
+  </div>
+  <div class="cap-bar">
+    <div class="bar-track">
+      <div class="bar-fill" id="bar-fill" style="width:0%;background:#34d399"></div>
+    </div>
+    <span class="cap-label" id="cap-label">0/10</span>
+  </div>
+</div>
+
+<!-- Content -->
+<div class="content">
+  <div id="grid-container"></div>
+</div>
+
+<!-- Detail Modal -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <div class="modal-img" id="modal-img-wrap">
+      <img id="modal-img" src="" alt="" />
+      <div class="modal-img-overlay"></div>
+      <div class="modal-img-title">
+        <h2 id="modal-name"></h2>
+        <p id="modal-breed"></p>
+      </div>
+      <button class="btn-close-modal" onclick="closeModal()">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path d="M18 6 6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-scroll" id="modal-scroll"></div>
+    <div class="modal-footer">
+      <button class="btn-modal-quitar" id="modal-quitar-btn">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+          <path d="M10 11v6M14 11v6M9 6V4h6v2"/>
+        </svg>
+        Quitar de guardadas
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="./js/mascotasguardadas.js"></script>
+</body>
+</html>

@@ -1,0 +1,333 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #f8fafc;
+  color: #1e293b;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  height: 56px;
+}
+
+.btn-back {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  transition: background 0.2s;
+}
+
+.btn-back:hover { background: #f1f5f9; }
+.btn-back svg { width: 20px; height: 20px; display: block; }
+
+.header-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+/* PAGE */
+.page {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 32px 16px 48px;
+}
+
+#perfil-form {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* SECTION */
+.section {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.section-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #64748b;
+  margin-bottom: 20px;
+}
+
+.section-title.danger { color: #dc2626; }
+
+/* AVATAR */
+.avatar-wrap {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto 8px;
+}
+
+.avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 9999px;
+  border: 2px solid #e2e8f0;
+  overflow: hidden;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar svg { width: 100%; height: 100%; }
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.btn-camara {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  background: #000;
+  border: 2px solid #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.btn-camara:hover { background: #334155; }
+.btn-camara svg { width: 15px; height: 15px; color: #fff; display: block; }
+
+.avatar-hint {
+  font-size: 12px;
+  color: #94a3b8;
+  text-align: center;
+}
+
+/* FIELDS */
+.field {
+  margin-bottom: 20px;
+}
+
+.field:last-child { margin-bottom: 0; }
+
+.field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #64748b;
+  margin-bottom: 6px;
+}
+
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.field-icon {
+  position: absolute;
+  left: 12px;
+  width: 16px;
+  height: 16px;
+  color: #94a3b8;
+  pointer-events: none;
+}
+
+.input-wrap input {
+  width: 100%;
+  height: 40px;
+  padding: 0 40px 0 36px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #f8fafc;
+  font-size: 14px;
+  color: #1e293b;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+/* Inputs de contraseña (sin ícono izquierdo) */
+.field .input-wrap input[type="password"],
+.field .input-wrap input[type="text"] {
+  padding-left: 14px;
+}
+
+.input-wrap input:focus { border-color: #94a3b8; }
+
+.input-disabled {
+  width: 100%;
+  height: 40px;
+  padding: 0 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #f1f5f9;
+  font-size: 14px;
+  color: #94a3b8;
+  cursor: not-allowed;
+  outline: none;
+}
+
+.field-hint {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 4px;
+  margin-left: 2px;
+}
+
+/* Toggle contraseña */
+.toggle-pass {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  transition: color 0.2s;
+}
+
+.toggle-pass:hover { color: #475569; }
+.toggle-pass svg { width: 16px; height: 16px; display: block; }
+
+/* Campo nombre con ícono */
+#nombre { padding-left: 36px !important; }
+
+/* Mensajes */
+.msg-error {
+  font-size: 13px;
+  color: #dc2626;
+  text-align: center;
+  min-height: 18px;
+}
+
+.msg-ok {
+  font-size: 13px;
+  color: #16a34a;
+  text-align: center;
+  min-height: 18px;
+}
+
+/* Botón guardar */
+.btn-guardar {
+  width: 100%;
+  height: 44px;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-guardar svg { width: 16px; height: 16px; }
+.btn-guardar:hover { background: #1e293b; }
+.btn-guardar:active { transform: scale(0.98); }
+.btn-guardar.ok { background: #16a34a; }
+
+/* Zona de peligro */
+.danger-zone { border-color: #fecaca; }
+
+.danger-desc {
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.btn-eliminar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+  background: none;
+  color: #ef4444;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-eliminar svg { width: 16px; height: 16px; }
+.btn-eliminar:hover { background: #fef2f2; }
+
+.confirm-msg {
+  font-size: 14px;
+  font-weight: 500;
+  color: #dc2626;
+  margin-bottom: 12px;
+}
+
+.confirm-btns {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-cancelar {
+  flex: 1;
+  height: 36px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: none;
+  font-size: 14px;
+  color: #475569;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-cancelar:hover { background: #f8fafc; }
+
+.btn-confirmar-delete {
+  flex: 1;
+  height: 36px;
+  border: none;
+  border-radius: 8px;
+  background: #ef4444;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-confirmar-delete:hover { background: #dc2626; }
+
+@media (max-width: 520px) {
+  .section { padding: 20px 16px; }
+}
