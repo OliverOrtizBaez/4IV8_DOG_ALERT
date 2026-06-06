@@ -2,43 +2,56 @@ const express = require('express');
 const path    = require('path');
 const app     = express();
 const PORT    = process.env.PORT || 3000;
-
-// ─── 1. RUTAS ────────────────────────────────────────────────────────────────
-// CORRECCIÓN: server.js está dentro de /server/, por eso el path era incorrecto.
-// Sube un nivel (..) para llegar a la raíz del proyecto y luego a /routes/
+ 
 const rutasPrincipales = require('../routes/routes');
-
-// ─── 2. MIDDLEWARES ───────────────────────────────────────────────────────────
+ 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// ─── 3. ARCHIVOS ESTÁTICOS ────────────────────────────────────────────────────
-// Sube un nivel para salir de /server/ y apuntar a /public/
 app.use(express.static(path.join(__dirname, '..', 'public')));
-
-// ─── 4. RUTAS DE LA API ───────────────────────────────────────────────────────
+ 
+// ─── API ─────────────────────────────────────────────────────────────────────
 app.use('/api', rutasPrincipales);
-
-// ─── 5. RUTA RAÍZ ─────────────────────────────────────────────────────────────
-// Redirige a la página principal (sin sesión iniciada)
+ 
+// ─── REDIRECCIONES (arreglan rutas rotas en el HTML sin tocar el HTML) ───────
+ 
+// login.html y sing_in.html usan "../menu_sinusuario/menu_sinusuario.html"
+// pero la carpeta se llama Sin_Usuario
+app.get('/menu_sinusuario/menu_sinusuario.html', (req, res) => {
+    res.redirect('/Sin_Usuario/menu_sinusuario.html');
+});
+ 
+// menu_rescaoalber.html usa "./reporte_tecnico/reporte_tecnico.html"
+// que resuelve a /Rescatador_Albergue/reporte_tecnico/reporte_tecnico.html (no existe)
+app.get('/Rescatador_Albergue/reporte_tecnico/reporte_tecnico.html', (req, res) => {
+    res.redirect('/reporte_tecnico/reporte_tecnico.html');
+});
+ 
+// crear-reporte.html éxito usa "mis-reportes.html" (con guión) en vez de mis_reportes.html
+app.get('/Dueño_de_Perro/mis-reportes.html', (req, res) => {
+    res.redirect('/Dueño_de_Perro/mis_reportes.html');
+});
+ 
+// crear-reporte.html éxito usa "registrar-mascota.html" (con guión)
+app.get('/Dueño_de_Perro/registrar-mascota.html', (req, res) => {
+    res.redirect('/Dueño_de_Perro/registrar_mascota.html');
+});
+ 
+// ─── RUTA RAÍZ ───────────────────────────────────────────────────────────────
 app.get('/', (req, res) => {
     res.redirect('/Sin_Usuario/menu_sinusuario.html');
 });
-
-// ─── 6. MANEJADOR 404 ─────────────────────────────────────────────────────────
-// Se ejecuta si ninguna ruta anterior coincide
+ 
+// ─── 404 ─────────────────────────────────────────────────────────────────────
 app.use((req, res) => {
     res.status(404).sendFile(path.join(__dirname, '404.html'));
 });
-
-// ─── 7. MANEJADOR DE ERRORES GENERALES (500) ──────────────────────────────────
-// Debe tener los 4 parámetros (err, req, res, next) para que Express lo reconozca
+ 
+// ─── 500 ─────────────────────────────────────────────────────────────────────
 app.use((err, req, res, next) => {
     console.error('❌ Error interno:', err.stack);
     res.status(500).sendFile(path.join(__dirname, '500.html'));
 });
-
-// ─── 8. INICIAR SERVIDOR ──────────────────────────────────────────────────────
+ 
 app.listen(PORT, () => {
     console.log(`🚀 Servidor listo en:  http://localhost:${PORT}`);
     console.log(`👉 API disponible en:  http://localhost:${PORT}/api`);

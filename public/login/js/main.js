@@ -1,49 +1,83 @@
-// Toggle mostrar/ocultar contraseña
 const passInput   = document.getElementById('password');
 const toggleBtn   = document.getElementById('toggle-pass');
 const iconEye     = document.getElementById('icon-eye');
 const iconEyeOff  = document.getElementById('icon-eye-off');
 
-toggleBtn.addEventListener('click', function () {
-  const visible = passInput.type === 'text';
-  passInput.type = visible ? 'password' : 'text';
-  iconEye.style.display    = visible ? 'block' : 'none';
-  iconEyeOff.style.display = visible ? 'none'  : 'block';
-});
+if (toggleBtn) {
+  toggleBtn.addEventListener('click', function () {
+    const visible = passInput.type === 'text';
+    passInput.type = visible ? 'password' : 'text';
+    if (iconEye) iconEye.style.display    = visible ? 'block' : 'none';
+    if (iconEyeOff) iconEyeOff.style.display = visible ? 'none'  : 'block';
+  });
+}
 
-// Submit del formulario
-document.getElementById('login-form').addEventListener('submit', function (e) {
-  e.preventDefault();
+const loginForm = document.getElementById('login-form');
+if (loginForm) {
+  loginForm.addEventListener('submit', async function (e) {
+    e.preventDefault(); 
 
-  const email    = document.getElementById('email').value.trim();
-  const password = document.getElementById('password').value;
-  const errorEl  = document.getElementById('error-msg');
+    const email     = document.getElementById('email').value.trim();
+    const password  = document.getElementById('password').value;
+    const errorEl   = document.getElementById('error-msg');
+    const btnSubmit = document.querySelector('button[type="submit"]') || document.getElementById('btn-submit');
 
-  errorEl.textContent = '';
+    if (errorEl) errorEl.textContent = '';
 
-  if (!email) {
-    errorEl.textContent = 'Ingresa tu correo.';
-    return;
-  }
+    if (!email || !password) {
+      if (errorEl) errorEl.textContent = 'Por favor, llena todos los campos.';
+      return;
+    }
 
-  if (!password) {
-    errorEl.textContent = 'Ingresa tu contraseña.';
-    return;
-  }
+    try {
+      if (btnSubmit) btnSubmit.disabled = true;
+      if (errorEl) {
+        errorEl.style.color = '#64748b';
+        errorEl.textContent = 'Verificando credenciales...';
+      }
 
-  // Simulación de login — aquí irá la llamada al backend
-  console.log('Login con:', email);
+      const respuesta = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ correo: email, contrasena: password })
+      });
 
-  // Redirige al menú (ajusta la ruta si tu carpeta es diferente)
-  window.location.href = '../menu/index.html';
-});
+      const resultado = await respuesta.json();
 
-// Botón Google — simulado
-document.getElementById('btn-google').addEventListener('click', function () {
-  const errorEl = document.getElementById('error-msg');
-  errorEl.textContent = '';
+      if (respuesta.ok) {
+        console.log("Logeo exitoso. Guardando datos...");
+        if (errorEl) {
+          errorEl.style.color = '#10b981';
+          errorEl.textContent = '¡Inicio de sesión correcto!';
+        }
 
-  // Simulación — aquí iría la integración real con Google OAuth
-  console.log('Login con Google');
-  window.location.href = '../menu/index.html';
-});
+        // GUARDAMOS EN AMBOS POR SI ACASO OTROS SCRIPTS USAN SESSIONSTORAGE
+        localStorage.setItem('id_usuario', resultado.id_usuario);
+        localStorage.setItem('nombre_usuario', resultado.nombre_completo);
+        localStorage.setItem('tipo_usuario', resultado.tipo_usuario);
+
+        sessionStorage.setItem('id_usuario', resultado.id_usuario);
+        sessionStorage.setItem('nombre_usuario', resultado.nombre_completo);
+        sessionStorage.setItem('tipo_usuario', resultado.tipo_usuario);
+
+        setTimeout(() => {
+          window.location.href = '/Dueno_de_Perro/menu_duenoperro.html';
+        }, 1000);
+
+      } else {
+        if (btnSubmit) btnSubmit.disabled = false;
+        if (errorEl) {
+          errorEl.style.color = '#ef4444';
+          errorEl.textContent = resultado.error || 'Correo o contraseña incorrectos.';
+        }
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      if (btnSubmit) btnSubmit.disabled = false;
+      if (errorEl) {
+        errorEl.style.color = '#ef4444';
+        errorEl.textContent = 'No hay conexión con el servidor.';
+      }
+    }
+  });
+}

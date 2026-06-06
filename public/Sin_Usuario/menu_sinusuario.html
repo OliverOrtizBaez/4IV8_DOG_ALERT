@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Menú Principal</title>
+  <title>Menú Principal · DOG ALERT</title>
   <link rel="stylesheet" href="./css/style.css" />
 </head>
 <body>
@@ -13,20 +13,20 @@
       <div class="header-stats">
         <div class="stat-item">
           <span class="stat-label">Reportes:</span>
-          <span class="stat-badge blue">0</span>
+          <span class="stat-badge blue" id="stat-total-reportes">0</span>
         </div>
         <div class="stat-item">
           <span class="stat-label">Perdidas:</span>
-          <span class="stat-badge red">0</span>
+          <span class="stat-badge red" id="stat-activas">0</span>
         </div>
         <div class="stat-item">
           <span class="stat-label">Encontradas:</span>
-          <span class="stat-badge green">0</span>
+          <span class="stat-badge green" id="stat-resueltas">0</span>
         </div>
       </div>
       <div class="header-logo">
-      <img src="./img/logo.png" alt="DOG ALERT" class="logo-img" />
-      <span class="logo-title">DOG ALERT</span>
+        <img src="./img/logo.png" alt="DOG ALERT" class="logo-img" />
+        <span class="logo-title">DOG ALERT</span>
       </div>
     </div>
   </header>
@@ -45,8 +45,8 @@
               </svg>
             </button>
             <div class="nav-user-info">
-              <p class="nav-user-name">ANONIMO</p>
-              <span class="nav-user-badge">INVITADO</span>
+              <p class="nav-user-name" id="nav-user-name">ANONIMO</p>
+              <span class="nav-user-badge" id="nav-user-role">INVITADO</span>
             </div>
             <button class="bell-btn" title="Notificaciones">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
@@ -56,12 +56,12 @@
               <span class="bell-dot"></span>
             </button>
           </div>
-          <a href="../login/login.html" class="btn-login">Iniciar Sesión</a>
+          <a href="../login/login.html" class="btn-login" id="btn-auth-action">Iniciar Sesión</a>
         </div>
 
         <div class="nav-menu">
           <p class="nav-section-title">Menú</p>
-        </div>
+          </div>
 
         <div class="nav-footer">
         </div>
@@ -78,47 +78,46 @@
       </button>
     </div>
 
-    <!-- SIDEBAR FILTROS -->
     <aside class="filter-sidebar">
-  <div class="filter-header">
-    <div class="filter-title-row">
-      <h3><i class="icon-filters"></i> Filtros</h3>
-      <button class="btn-reset" id="btn-reset">Limpiar</button>
-    </div>
-    <p class="filter-results" id="resultado-conteo">5 resultados</p>
-  </div>
-
-  <div class="filter-group">
-    <label class="filter-label">Estatus</label>
-    <div class="status-options" id="filtro-status-container">
-      <button class="btn-status active" data-value="todos">Todos</button>
-      <button class="btn-status" data-value="perdido">Perdido</button>
-      <button class="btn-status" data-value="encontrado">Encontrado</button>
-    </div>
-  </div>
-
-  <div class="filter-group">
-    <label class="filter-label">Recompensa</label>
-    <div class="price-range-text">
-      <span id="recompensa-min">$0</span> — <span id="recompensa-max">$10,000</span>
-    </div>
-    <div class="range-slider-container">
-      <input type="range" id="filtro-recompensa" min="0" max="10000" value="10000" class="range-slider">
-      <div class="range-labels">
-        <span>$0</span>
-        <span>$10,000</span>
+      <div class="filter-header">
+        <div class="filter-title-row">
+          <h3><i class="icon-filters"></i> Filtros</h3>
+          <button class="btn-reset" id="btn-reset">Limpiar</button>
+        </div>
+        <p class="filter-results" id="resultado-conteo">0 resultados</p>
       </div>
-    </div>
-  </div>
 
-  <div class="filter-group">
-    <label class="filter-label">Raza</label>
-    <div class="search-input-wrapper">
-      <input type="text" id="buscar-raza-input" placeholder="Buscar raza...">
-    </div>
-    <div class="raza-scroll-container" id="raza-tags-container"></div>
-  </div>
-</aside>
+      <div class="filter-group">
+        <label class="filter-label">Estatus de Alerta</label>
+        <div class="status-options" id="filtro-status-container">
+          <button class="btn-status active" data-value="todos">Todos</button>
+          <button class="btn-status" data-value="Activo">Buscados (Activos)</button>
+          <button class="btn-status" data-value="Resuelto">Encontrados (Resueltos)</button>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Recompensa Máxima</label>
+        <div class="price-range-text">
+          <span id="recompensa-min">$0</span> — <span id="recompensa-max">$10,000</span>
+        </div>
+        <div class="range-slider-container">
+          <input type="range" id="filtro-recompensa" min="0" max="10000" value="10000" class="range-slider">
+          <div class="range-labels">
+            <span>$0</span>
+            <span>$10,000+</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Raza</label>
+        <div class="search-input-wrapper">
+          <input type="text" id="buscar-raza-input" placeholder="Buscar raza...">
+        </div>
+        <div class="raza-scroll-container" id="raza-tags-container"></div>
+      </div>
+    </aside>
 
     <main class="main-content">
       <div class="search-bar-wrapper">
@@ -127,7 +126,7 @@
             <input type="text" id="search-input" class="search-input" placeholder="Buscar por RUAC (MAYUS/NUM)..." maxlength="10" />
             <button id="btn-clear-search" class="btn-clear">✕</button>
           </div>
-          <p class="search-hint">RUAC: 5 letras + 5 números &nbsp;|&nbsp; Folio: FL-YYYY-NNN</p>
+          <p class="search-hint">RUAC: 5 letras + 5 números (Asignado por la CDMX)</p>
         </div>
       </div>
       <div class="pet-grid" id="pet-grid"></div>
@@ -140,22 +139,31 @@
       <div class="modal-body">
         <div class="modal-top">
           <div>
-            <h2 class="modal-name" id="modal-nombre"></h2>
+            <h2 class="modal-name" id="modal-nombre">Nombre Perro</h2>
             <div id="modal-estado" style="margin-top:4px;"></div>
           </div>
           <button class="modal-close" onclick="cerrarModal()">✕</button>
         </div>
+        
         <div class="modal-info-grid">
-          <div class="modal-info-item"><label>Raza</label><p id="modal-raza"></p></div>
-          <div class="modal-info-item"><label>Folio</label><p id="modal-folio"></p></div>
-          <div class="modal-info-item"><label>RUAC</label><p id="modal-ruac"></p></div>
-          <div class="modal-info-item"><label>Ubicación</label><p id="modal-ubicacion"></p></div>
+          <div class="modal-info-item"><label>RUAC</label><p id="modal-ruac">-</p></div>
+          <div class="modal-info-item"><label>Raza</label><p id="modal-raza">-</p></div>
+          <div class="modal-info-item"><label>Tamaño</label><p id="modal-tamano">-</p></div>
+          <div class="modal-info-item"><label>Color Pelaje</label><p id="modal-pelaje">-</p></div>
+          <div class="modal-info-item"><label>Color Ojos</label><p id="modal-ojos">-</p></div>
+          <div class="modal-info-item"><label>¿Collar?</label><p id="modal-collar">-</p></div>
+          <div class="modal-info-item"><label>Recompensa</label><p id="modal-recompensa">-</p></div>
+          <div class="modal-info-item"><label>Alcaldía Extravío</label><p id="modal-ubicacion">-</p></div>
         </div>
-        <p class="modal-desc" id="modal-desc"></p>
+
+        <div style="margin-top:16px;">
+          <label style="font-size:11px; text-transform:uppercase; color:#64748b; font-weight:600; display:block; margin-bottom:4px;">Detalles del Extravío / Señas</label>
+          <p class="modal-desc" id="modal-desc">Sin comentarios adicionales.</p>
+        </div>
       </div>
     </div>
   </div>
 
-  <script src="js/main.js"></script>
+<script src="./js/menu_sinusuario.js"></script> <!-- Renombra este archivo para que no choque con el privado -->
 </body>
 </html>

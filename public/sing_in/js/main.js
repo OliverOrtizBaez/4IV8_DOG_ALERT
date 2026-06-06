@@ -35,19 +35,25 @@ inputConfirm.addEventListener('input', function () {
 
 checkTerms.addEventListener('change', actualizarBoton);
 
-// Toggle contraseña
+// Mostrar / Ocultar contraseña
 togglePassBtn.addEventListener('click', function () {
-  const visible = inputPass.type === 'text';
-  inputPass.type       = visible ? 'password' : 'text';
-  inputConfirm.type    = visible ? 'password' : 'text';
-  iconEye.style.display    = visible ? 'block' : 'none';
-  iconEyeOff.style.display = visible ? 'none'  : 'block';
+  const tipo = inputPass.getAttribute('type') === 'password' ? 'text' : 'password';
+  inputPass.setAttribute('type', tipo);
+  inputConfirm.setAttribute('type', tipo);
+
+  if (tipo === 'text') {
+    iconEye.classList.add('hidden');
+    iconEyeOff.classList.remove('hidden');
+  } else {
+    iconEye.classList.remove('hidden');
+    iconEyeOff.classList.add('hidden');
+  }
 });
 
-// Validar requisitos de contraseña en tiempo real
+// Validación en tiempo real de los requisitos
 function validarRequisitos() {
   const p = inputPass.value;
-  setRule('rule-len',     p.length >= 8 && p.length <= 20);
+  setRule('rule-length',  p.length >= 8 && p.length <= 20);
   setRule('rule-upper',   /[A-Z]/.test(p));
   setRule('rule-lower',   /[a-z]/.test(p));
   setRule('rule-num',     /\d/.test(p));
@@ -57,8 +63,10 @@ function validarRequisitos() {
 
 function setRule(id, ok) {
   const el = document.getElementById(id);
-  if (ok) el.classList.add('ok');
-  else    el.classList.remove('ok');
+  if (el) {
+    if (ok) el.classList.add('ok');
+    else    el.classList.remove('ok');
+  }
 }
 
 function todosRequisitosOk() {
@@ -78,8 +86,8 @@ function actualizarBoton() {
   btnSubmit.disabled = !listo;
 }
 
-// Submit
-form.addEventListener('submit', function (e) {
+// ─── EVENTO ENVIAR FORMULARIO (CONEXIÓN BACKEND) ───
+form.addEventListener('submit', async function (e) {
   e.preventDefault();
   errorMsg.textContent = '';
 
@@ -88,14 +96,62 @@ form.addEventListener('submit', function (e) {
   const pass     = inputPass.value;
   const confirm  = inputConfirm.value;
 
-  if (!nombre) { errorMsg.textContent = 'Ingresa tu nombre.'; return; }
-  if (!email)  { errorMsg.textContent = 'Ingresa tu correo.'; return; }
-  if (!todosRequisitosOk()) { errorMsg.textContent = 'La contraseña no cumple los requisitos.'; return; }
-  if (pass !== confirm) { errorMsg.textContent = 'Las contraseñas no coinciden.'; return; }
+  // Validaciones de seguridad en Frontend
+  if (!nombre) { 
+    errorMsg.textContent = 'Ingresa tu nombre completo.'; 
+    return; 
+  }
+  if (!email) { 
+    errorMsg.textContent = 'Ingresa tu correo electrónico.'; 
+    return; 
+  }
+  if (pass !== confirm) {
+    errorMsg.textContent = 'Las contraseñas no coinciden.';
+    return;
+  }
 
-  // Simulación — aquí iría la llamada al backend
-  console.log('Registro:', { nombre, email });
+  // 1. Armamos el objeto con la estructura que requiere auth.controller.js
+  const datosUsuario = {
+    nombre_completo: nombre,
+    correo: email,
+    contrasena: pass,
+    id_tipo_usuario: 1 // 1 = "Dueño de mascota" según los catálogos de tu base de datos
+  };
 
-  // Redirige a selección de tipo de usuario
-  window.location.href = "../tipo_de_usuario/tipodeusuario.html";
+  try {
+    // Deshabilitamos el botón para evitar clics dobles mientras procesa MySQL
+    btnSubmit.disabled = true;
+    errorMsg.style.color = '#64748b';
+    errorMsg.textContent = 'Registrando usuario en la base de datos...';
+
+    // 2. Hacemos la petición HTTP POST hacia el servidor central (server.js)
+    const respuesta = await fetch('/api/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(datosUsuario)
+    });
+
+    const resultado = await respuesta.json();
+
+    // 3. Manejamos la respuesta del backend
+    if (respuesta.ok) {
+      alert('¡Usuario registrado con éxito en la base de datos!');
+      // Redirecciona al usuario a la pantalla de Login oficial
+      window.location.href = '../login/login.html'; 
+    } else {
+      // Si el controlador arrojó un error controlado (ej. Correo duplicado - 409)
+      btnSubmit.disabled = false;
+      errorMsg.style.color = '#ef4444';
+      errorMsg.textContent = resultado.error || 'Hubo un error al registrar el usuario.';
+    }
+
+  } catch (error) {
+    // Si el servidor de Node.js está apagado o hay falla de red local
+    console.error('Error de red al intentar conectar con la API:', error);
+    btnSubmit.disabled = false;
+    errorMsg.style.color = '#ef4444';
+    errorMsg.textContent = 'No se pudo establecer conexión con el servidor. Verifica que esté activo.';
+  }
 });

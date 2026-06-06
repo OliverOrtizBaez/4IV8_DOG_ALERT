@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nueva Mascota · DOG ALERT</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght=400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./css/nueva_mascota_style.css">
 </head>
 <body>
@@ -26,13 +26,9 @@
     </div>
   </header>
 
-  <!-- Contenido -->
   <main class="content">
     <div class="form-wrap">
 
-      <!-- ══════════════════════════
-           PASO 1 — RUAC
-           ══════════════════════════ -->
       <div id="paso1">
 
         <div class="card">
@@ -74,15 +70,8 @@
           Si tu mascota no tiene RUAC, deberás tramitarlo antes de registrarla aquí.
         </div>
 
-      </div><!-- /paso1 -->
+      </div><div id="paso2" class="hidden">
 
-
-      <!-- ══════════════════════════
-           PASO 2 — FORMULARIO
-           ══════════════════════════ -->
-      <div id="paso2" class="hidden">
-
-        <!-- RUAC verificado -->
         <div class="alert alert-green" id="ruac-ok-badge">
           <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -93,7 +82,6 @@
           </div>
         </div>
 
-        <!-- Nombre -->
         <div class="card">
           <div class="field">
             <div class="label">
@@ -104,19 +92,17 @@
           </div>
         </div>
 
-        <!-- Edad y Peso -->
         <div class="card card-grid2">
           <div class="field" style="margin-bottom:0">
-            <div class="label"><span class="label-text">Edad (años)</span></div>
-            <input type="number" id="edad" min="0" max="31" placeholder="0 – 31" />
+            <div class="label"><span class="label-text">Fecha de Nacimiento</span></div>
+            <input type="date" id="fecha_nacimiento" />
           </div>
           <div class="field" style="margin-bottom:0">
             <div class="label"><span class="label-text">Peso (kg)</span></div>
-            <input type="number" id="peso" min="0" max="111" step="0" placeholder="0 – 111" />
+            <input type="number" id="peso" min="0" max="111" step="0.01" placeholder="Ej. 12.5" />
           </div>
         </div>
 
-        <!-- Sexo -->
         <div class="card">
           <div class="label" style="margin-bottom:10px;">
             <span class="label-text">Sexo</span>
@@ -127,46 +113,79 @@
           </div>
         </div>
 
-        <!-- Tamaño -->
         <div class="card">
           <div class="label" style="margin-bottom:10px;">
             <span class="label-text">Tamaño</span>
           </div>
-          <div class="toggle-group" id="tamaño-group">
-            <button class="toggle-btn" data-value="Chico"   data-group="tamaño">Chico</button>
-            <button class="toggle-btn" data-value="Mediano" data-group="tamaño">Mediano</button>
-            <button class="toggle-btn" data-value="Grande"  data-group="tamaño">Grande</button>
+          <div class="toggle-group" id="tamano-group">
+            <button class="toggle-btn" data-value="1" data-group="tamano">Miniatura (&lt; 5kg)</button>
+            <button class="toggle-btn" data-value="2" data-group="tamano">Chico (5-10kg)</button>
+            <button class="toggle-btn" data-value="3" data-group="tamano">Mediano (11-25kg)</button>
+            <button class="toggle-btn" data-value="4" data-group="tamano">Grande (26-44kg)</button>
+            <button class="toggle-btn" data-value="5" data-group="tamano">Gigante (&ge; 45kg)</button>
           </div>
         </div>
 
         <div class="card">
           <div class="field">
             <div class="label"><span class="label-text">Raza</span></div>
-            <select id="raza">
+            <select id="id_raza">
               <option value="">Selecciona la raza</option>
+              <option value="1">Mestizo / Criollo</option>
+              <option value="2">Husky Siberiano</option>
+              <option value="3">Pug</option>
+              <option value="4">Chihuahua</option>
+              <option value="5">Pitbull</option>
+              <option value="6">Golden Retriever</option>
+              <option value="7">Pastor Alemán</option>
+              <option value="8">Labrador Retriever</option>
+              <option value="9">Bulldog Francés</option>
+              <option value="10">Poodle (Caniche)</option>
+              <option value="11">Schnauzer</option>
+              <option value="12">Dóberman</option>
             </select>
           </div>
+          
           <div class="field">
             <div class="label"><span class="label-text">Tipo de pelaje</span></div>
-            <select id="pelaje">
+            <select id="id_tipo_pelaje">
               <option value="">Selecciona el tipo de pelaje</option>
+              <option value="1">Corto / Liso</option>
+              <option value="2">Largo</option>
+              <option value="3">Rizado</option>
+              <option value="4">Duro / Alambre</option>
+              <option value="5">Sin Pelo</option>
             </select>
           </div>
+
           <div class="field">
             <div class="label"><span class="label-text">Color de ojos</span></div>
-            <select id="colorOjos">
+            <select id="id_ojos">
               <option value="">Selecciona el color de ojos</option>
+              <option value="1">Café</option>
+              <option value="2">Negro</option>
+              <option value="3">Verde</option>
+              <option value="4">Azul</option>
+              <option value="5">Ámbar / Miel</option>
+              <option value="6">Heterocromía (Un ojo de cada color)</option>
             </select>
           </div>
+
           <div class="field" style="margin-bottom:0">
             <div class="label"><span class="label-text">Color de pelaje</span></div>
-            <select id="colorPelaje">
+            <select id="id_pelaje">
               <option value="">Selecciona el color de pelaje</option>
+              <option value="1">Blanco</option>
+              <option value="2">Negro</option>
+              <option value="3">Café</option>
+              <option value="4">Gris</option>
+              <option value="5">Dorado / Crema</option>
+              <option value="6">Manchado (Bicolor/Tricolor)</option>
+              <option value="7">Atigrado</option>
             </select>
           </div>
         </div>
 
-        <!-- Señas particulares -->
         <div class="card">
           <div class="field" style="margin-bottom:0">
             <div class="label">
@@ -178,19 +197,16 @@
           </div>
         </div>
 
-        <!-- Collar -->
         <div class="card">
           <div class="label" style="margin-bottom:10px;">
             <span class="label-text">¿Tiene collar?</span>
           </div>
           <div class="toggle-group" id="collar-group">
-            <button class="toggle-btn" data-value="Sí"   data-group="collar">Sí</button>
-            <button class="toggle-btn" data-value="No"   data-group="collar">No</button>
-            <button class="toggle-btn" data-value="No sé" data-group="collar">No sé</button>
+            <button class="toggle-btn" data-value="1" data-group="collar">Sí</button>
+            <button class="toggle-btn" data-value="0" data-group="collar">No</button>
           </div>
         </div>
 
-        <!-- Foto -->
         <div class="card">
           <div class="label" style="margin-bottom:10px;">
             <span class="label-text">
@@ -219,10 +235,8 @@
           <input type="file" id="foto-input" accept="image/*" class="hidden" />
         </div>
 
-        <!-- Error -->
         <div id="form-error" class="alert alert-red hidden"></div>
 
-        <!-- Guardar -->
         <button class="btn-black" id="btn-guardar">
           <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -232,11 +246,9 @@
 
         <div style="height:24px"></div>
 
-      </div><!-- /paso2 -->
+      </div></div></main>
 
-    </div><!-- /form-wrap -->
-  </main>
-
-  <script src="./js/nuevamascota.js"></script>
+<script src="./js/nuevamascota.js"></script>
+</body>
 </body>
 </html>

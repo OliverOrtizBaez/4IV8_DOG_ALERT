@@ -1,3 +1,5 @@
+// routes/routes.js
+
 const express = require('express');
 const router  = express.Router();
 
@@ -40,7 +42,7 @@ router.put   ('/mascotas/:id', mascotaController.actualizarMascota);
 router.delete('/mascotas/:id', mascotaController.eliminarMascota);
 
 
-// ─── ALERTAS ──────────────────────────────────────────────────────────────────
+// ─── REPORTES DE ALERTAS (EXTRAVÍOS) ──────────────────────────────────────────
 router.get   ('/alertas',     reporteAlertaController.obtenerAlertas);
 router.post  ('/alertas',     reporteAlertaController.crearAlerta);
 router.put   ('/alertas/:id', reporteAlertaController.actualizarAlerta);
@@ -70,6 +72,5 @@ router.get('/catalogos/tamanos',       catalogosController.obtenerTamanos);
 router.get('/catalogos/ojos',          catalogosController.obtenerOjos);
 router.get('/catalogos/tipos-usuario', catalogosController.obtenerTiposUsuario);
 router.get('/catalogos/fallas',        catalogosController.obtenerFallas);
-
 
 module.exports = router;
