@@ -1,26 +1,28 @@
-const mysql = require('mysql2/promise');
+// Importamos la versión normal de mysql2
+const mysql = require('mysql2');
 
-// Pool de conexiones (más eficiente que una sola conexión)
+// Creamos el Pool
 const pool = mysql.createPool({
     host:     process.env.DB_HOST || 'localhost',
     user:     process.env.DB_USER || 'root',
-    password: process.env.DB_PASS || 'F20CBfEjt',          // ← Pon aquí tu contraseña de MySQL
+    password: process.env.DB_PASS || 'F20CBfEjt',
     database: process.env.DB_NAME || 'alerta_canina',
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
-    timezone: '-06:00'                            // Zona horaria de CDMX
+    timezone: '-06:00'
 });
 
-// Verifica la conexión al arrancar el servidor
-pool.getConnection()
-    .then(conn => {
+// Verificamos la conexión
+pool.getConnection((err, conn) => {
+    if (err) {
+        console.error(' No se pudo conectar a MySQL:', err.message);
+        process.exit(1); 
+    } else {
         console.log(' Conectado a MySQL — base de datos: alerta_canina');
         conn.release();
-    })
-    .catch(err => {
-        console.error(' No se pudo conectar a MySQL:', err.message);
-        process.exit(1); // Detiene el servidor si no hay BD
-    });
+    }
+});
 
-module.exports = pool;
+// EXPORTAMOS EL POOL COMO PROMESA (.promise() hace que db.query funcione con await)
+module.exports = pool.promise();

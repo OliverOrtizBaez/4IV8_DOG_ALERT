@@ -5,12 +5,13 @@
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
-    "dev":   "nodemon server/server.js"
+    "dev": "nodemon server/server.js"
   },
   "dependencies": {
-    "bcrypt":  "^5.1.1",
+    "bcrypt": "^5.1.1",
     "express": "^4.18.2",
-    "mysql2":  "^3.6.5"
+    "multer": "^2.1.1",
+    "mysql2": "^3.6.5"
   },
   "devDependencies": {
     "nodemon": "^3.0.2"

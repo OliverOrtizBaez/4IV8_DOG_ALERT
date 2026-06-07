@@ -1,19 +1,69 @@
-// --- Foto de perfil ---
-var btnCamara   = document.getElementById('btn-camara');
-var inputFoto   = document.getElementById('input-foto');
-var avatarImg   = document.getElementById('avatar-img');
-var avatarPlaceholder = document.getElementById('avatar-placeholder');
+// ─── SESIÓN ────────────────────────────────────────────────────────────────────
+const API = '/api'; 
 
-btnCamara.addEventListener('click', function() {
+function getSession() {
+  const raw = localStorage.getItem('usuario');
+  return raw ? JSON.parse(raw) : null;
+}
+
+function saveSession(data) {
+  const session = getSession();
+  localStorage.setItem('usuario', JSON.stringify({ ...session, ...data }));
+}
+
+// ─── REFERENCIAS DOM ──────────────────────────────────────────────────────────
+var btnCamara         = document.getElementById('btn-camara');
+var inputFoto         = document.getElementById('input-foto');
+var avatarImg         = document.getElementById('avatar-img');
+var avatarPlaceholder = document.getElementById('avatar-placeholder');
+var form              = document.getElementById('perfil-form');
+var btnGuardar        = document.getElementById('btn-guardar');
+var msgError          = document.getElementById('msg-error');
+var msgOk             = document.getElementById('msg-ok');
+
+// ─── CARGAR DATOS AL ENTRAR ───────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', function () {
+  var session = getSession();
+  if (!session) {
+    window.location.href = '../login/index.html';
+    return;
+  }
+
+  document.getElementById('nombre').value = session.nombre_completo || '';
+  document.getElementById('email').value  = session.correo || '';
+
+  // Validar que la foto exista y no sea el texto "undefined"
+  if (session.foto_url && session.foto_url !== 'undefined' && session.foto_url !== 'null') {
+    avatarImg.src = session.foto_url;
+    avatarImg.style.display = 'block';
+    avatarPlaceholder.style.display = 'none';
+
+    // Evita el error 404 en consola si la ruta de la imagen en BD está rota
+    avatarImg.onerror = function() {
+      avatarImg.style.display = 'none';
+      avatarPlaceholder.style.display = 'block';
+    };
+  } else {
+    avatarImg.style.display = 'none';
+    avatarPlaceholder.style.display = 'block';
+  }
+});
+
+// ─── FOTO DE PERFIL (VISTA PREVIA) ───────────────────────────────────────────
+var archivoFotoSeleccionado = null;
+
+btnCamara.addEventListener('click', function () {
   inputFoto.click();
 });
 
-inputFoto.addEventListener('change', function() {
+inputFoto.addEventListener('change', function () {
   var file = this.files[0];
   if (!file) return;
 
+  archivoFotoSeleccionado = file;
+
   var reader = new FileReader();
-  reader.onload = function(e) {
+  reader.onload = function (e) {
     avatarImg.src = e.target.result;
     avatarImg.style.display = 'block';
     avatarPlaceholder.style.display = 'none';
@@ -21,103 +71,163 @@ inputFoto.addEventListener('change', function() {
   reader.readAsDataURL(file);
 });
 
-// --- Toggle mostrar/ocultar contraseña ---
-var toggleBtns = document.querySelectorAll('.toggle-pass');
-
-toggleBtns.forEach(function(btn) {
-  btn.addEventListener('click', function() {
-    var targetId = btn.getAttribute('data-target');
-    var input    = document.getElementById(targetId);
-    var eyeOn    = btn.querySelector('.icon-eye');
-    var eyeOff   = btn.querySelector('.icon-eye-off');
-
-    if (input.type === 'password') {
-      input.type = 'text';
-      eyeOn.style.display  = 'none';
-      eyeOff.style.display = 'block';
-    } else {
-      input.type = 'password';
-      eyeOn.style.display  = 'block';
-      eyeOff.style.display = 'none';
-    }
-  });
-});
-
-// --- Guardar cambios ---
-var form      = document.getElementById('perfil-form');
-var btnGuardar = document.getElementById('btn-guardar');
-var msgError  = document.getElementById('msg-error');
-var msgOk     = document.getElementById('msg-ok');
-
-form.addEventListener('submit', function(e) {
+// ─── GUARDAR CAMBIOS (TEXTO Y FOTO) ───────────────────────────────────────────
+btnGuardar.addEventListener('click', async function (e) {
   e.preventDefault();
+
+  var nombre     = document.getElementById('nombre').value.trim();
+  var passActual = document.getElementById('pass-actual').value;
+  var passNueva  = document.getElementById('pass-nueva').value;
+  var passConf   = document.getElementById('pass-confirmar').value;
+
   msgError.textContent = '';
   msgOk.textContent    = '';
 
-  var nombre      = document.getElementById('nombre').value.trim();
-  var passActual  = document.getElementById('pass-actual').value;
-  var passNueva   = document.getElementById('pass-nueva').value;
-  var passConfirm = document.getElementById('pass-confirm').value;
-
-  // Validar nombre
   if (!nombre) {
-    msgError.textContent = 'El nombre no puede estar vacío.';
+    msgError.textContent = 'El nombre es obligatorio.';
     return;
   }
 
-  // Si llenó algún campo de contraseña, validar todos
-  if (passActual || passNueva || passConfirm) {
+  if (passNueva || passConf) {
     if (!passActual) {
-      msgError.textContent = 'Ingresa tu contraseña actual.';
+      msgError.textContent = 'Debes ingresar tu contraseña actual para cambiarla.';
       return;
     }
-    if (passNueva.length < 8) {
-      msgError.textContent = 'La nueva contraseña debe tener al menos 8 caracteres.';
-      return;
-    }
-    if (passNueva !== passConfirm) {
+    if (passNueva !== passConf) {
       msgError.textContent = 'Las contraseñas nuevas no coinciden.';
       return;
     }
   }
 
-  // Simulación de guardado
-  console.log('Perfil guardado:', { nombre: nombre });
+  var session = getSession();
+  
+  // Extrae el ID y verifica que no sea una cadena de texto rota
+  var miId = session ? (session.id_persona || session.id || session.id_usuario) : null;
+  if (miId === 'undefined' || miId === 'null') {
+      miId = null; 
+  }
 
-  btnGuardar.classList.add('ok');
-  btnGuardar.textContent = '✓  ¡Guardado!';
-  msgOk.textContent = 'Los cambios se guardaron correctamente.';
+  if (!session || !miId) {
+    msgError.textContent = 'Error de sesión. Por favor, cierra sesión y vuelve a entrar.';
+    return;
+  }
 
-  setTimeout(function() {
-    btnGuardar.classList.remove('ok');
-    btnGuardar.innerHTML =
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;">' +
-      '<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>' +
-      '<polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>' +
-      ' Guardar cambios';
-    msgOk.textContent = '';
-  }, 3000);
+  btnGuardar.disabled = true;
+
+  console.log("🚀 Iniciando guardado de perfil...");
+  console.log("👉 ID a enviar:", miId);
+
+  try {
+    // 1. Enviar datos de texto
+    var payload = {
+      nombre_completo: nombre,
+      contrasena_actual: passActual,
+      contrasena_nueva: passNueva
+    };
+
+    const urlTexto = API + '/personas/' + miId;
+    console.log("🌐 URL de actualización de datos:", urlTexto);
+
+    var resDatos = await fetch(urlTexto, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (!resDatos.ok) {
+      var dataErr = await resDatos.json();
+      throw new Error(dataErr.mensaje || dataErr.error || 'Error al actualizar los datos.');
+    }
+
+    saveSession({ nombre_completo: nombre });
+
+    // 2. Enviar la foto de perfil (Solo si se seleccionó una)
+    if (archivoFotoSeleccionado) {
+      console.log("📸 Detectada nueva foto, procesando subida...");
+      var formData = new FormData();
+      formData.append('foto', archivoFotoSeleccionado);
+
+      const urlFoto = API + '/personas/' + miId + '/foto';
+      console.log("🌐 URL de actualización de foto:", urlFoto);
+
+      var resFoto = await fetch(urlFoto, {
+        method: 'PUT',
+        body: formData 
+      });
+
+      if (!resFoto.ok) {
+        var fotoErr = await resFoto.json();
+        throw new Error(fotoErr.mensaje || fotoErr.error || 'Error al subir la foto.');
+      }
+
+      var fotoData = await resFoto.json();
+      saveSession({ foto_url: fotoData.foto_url });
+      console.log("✅ Foto guardada correctamente:", fotoData.foto_url);
+    }
+
+    msgOk.textContent = 'Perfil actualizado correctamente.';
+    
+    document.getElementById('pass-actual').value = '';
+    document.getElementById('pass-nueva').value = '';
+    document.getElementById('pass-confirmar').value = '';
+    
+    archivoFotoSeleccionado = null;
+
+  } catch (err) {
+    console.error("❌ Error durante el guardado:", err);
+    msgError.textContent = err.message || 'No se pudo conectar con el servidor.';
+  } finally {
+    btnGuardar.disabled = false;
+  }
 });
 
-// --- Eliminar cuenta ---
-var btnEliminar = document.getElementById('btn-eliminar');
-var btnCancelar = document.getElementById('btn-cancelar');
+// ─── ELIMINAR CUENTA ──────────────────────────────────────────────────────────
+var btnEliminar  = document.getElementById('btn-eliminar');
+var btnCancelar  = document.getElementById('btn-cancelar');
 var btnConfirmar = document.getElementById('btn-confirmar-delete');
-var step1 = document.getElementById('delete-step-1');
-var step2 = document.getElementById('delete-step-2');
+var step1        = document.getElementById('delete-step-1');
+var step2        = document.getElementById('delete-step-2');
 
-btnEliminar.addEventListener('click', function() {
+btnEliminar.addEventListener('click', function () {
   step1.style.display = 'none';
   step2.style.display = 'block';
 });
 
-btnCancelar.addEventListener('click', function() {
+btnCancelar.addEventListener('click', function () {
   step1.style.display = 'block';
   step2.style.display = 'none';
 });
 
-btnConfirmar.addEventListener('click', function() {
-  // Simulación — aquí iría la llamada al backend
-  console.log('Cuenta eliminada');
-  window.location.href = '../login/index.html';
+btnConfirmar.addEventListener('click', async function () {
+  var session = getSession();
+  var miId = session ? (session.id_persona || session.id || session.id_usuario) : null;
+  if (miId === 'undefined' || miId === 'null') miId = null;
+
+  if (!session || !miId) {
+    msgError.textContent = 'Error de sesión al intentar eliminar.';
+    return;
+  }
+
+  btnConfirmar.disabled = true;
+
+  try {
+    var res = await fetch(API + '/personas/' + miId, {
+      method: 'DELETE'
+    });
+
+    if (!res.ok) {
+      var data = await res.json();
+      msgError.textContent = data.mensaje || data.error || 'No se pudo eliminar la cuenta.';
+      btnConfirmar.disabled = false;
+      return;
+    }
+
+    localStorage.removeItem('usuario');
+    window.location.href = '../login/index.html';
+
+  } catch (err) {
+    console.error(err);
+    msgError.textContent = 'Error al conectar con el servidor.';
+    btnConfirmar.disabled = false;
+  }
 });
