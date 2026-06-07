@@ -54,7 +54,7 @@ function render() {
         </svg>
         <p class="title">Sin reportes activos</p>
         <p class="sub">Cuando crees un reporte de pérdida aparecerá aquí.</p>
-        <a href="crear-reporte.html" class="btn-crear">
+        <a href="crear_reporte.html" class="btn-crear">
           Crear reporte
           <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path d="M9 18l6-6-6-6"/>
