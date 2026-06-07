@@ -1,0 +1,875 @@
+/* ========================================
+   RESET Y ESTILOS GENERALES
+======================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #ffffff;
+    color: #1a1a1a;
+    line-height: 1.7;
+    overflow-x: hidden;
+}
+
+/* ========================================
+   HEADER
+======================================== */
+.header {
+    position: relative;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                      url('/z_img/perro_header.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 120px 20px;
+    text-align: center;
+    border-bottom: 6px solid #ff6b35;
+}
+
+.header-title {
+    font-size: 5rem;
+    font-weight: 900;
+    color: #ffffff;
+    margin-bottom: 20px;
+    text-shadow: 4px 4px 12px rgba(0,0,0,0.8);
+    letter-spacing: 2px;
+}
+
+.header-subtitle {
+    font-size: 2.2rem;
+    color: #ffffff;
+    font-weight: 300;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+}
+
+/* ========================================
+   CONTAINER
+======================================== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* ========================================
+   SECCIONES - MINIMALISTA CON IMÁGENES
+======================================== */
+.section {
+    position: relative;
+    background: #ffffff;
+    border-radius: 0;
+    padding: 80px 60px;
+    margin: 60px 0;
+    border-left: 8px solid #1a1a1a;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+
+/* Imágenes de fondo alternadas */
+.section::before {
+    content: '';
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.08;
+    z-index: 0;
+}
+
+.section::after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.06;
+    z-index: 0;
+}
+
+/* Posiciones alternadas de imágenes de perros */
+.section-blue::before {
+    background-image: url('/z_img/img_fondo/1.png');
+    top: 20px;
+    left: 20px;
+    border-radius: 50%;
+}
+
+.section-blue::after {
+    background-image: url('/z_img/img_fondo/2.png');
+    bottom: 30px;
+    right: 30px;
+    border-radius: 20px;
+}
+
+.section-orange::before {
+    background-image: url('/z_img/img_fondo/3.png');
+    top: 30px;
+    right: 30px;
+    border-radius: 50%;
+}
+
+.section-orange::after {
+    background-image: url('/z_img/img_fondo/4.png');
+    bottom: 20px;
+    left: 20px;
+    border-radius: 20px;
+}
+
+.section-green::before {
+    background-image: url('/z_img/img_fondo/5.png');
+    top: 40px;
+    left: 40px;
+    border-radius: 50%;
+}
+
+.section-green::after {
+    background-image: url('/z_img/img_fondo/6.png');
+    bottom: 40px;
+    right: 40px;
+    border-radius: 20px;
+}
+
+.section-purple::before {
+    background-image: url('/z_img/img_fondo/7.png');
+    top: 25px;
+    right: 25px;
+    border-radius: 50%;
+}
+
+.section-purple::after {
+    background-image: url('/z_img/img_fondo/8.png');
+    bottom: 35px;
+    left: 35px;
+    border-radius: 20px;
+}
+
+.section-pink::before {
+    background-image: url('/z_img/img_fondo/9.png');
+    top: 30px;
+    left: 30px;
+    border-radius: 50%;
+}
+
+.section-pink::after {
+    background-image: url('/z_img/img_fondo/10.png');
+    bottom: 30px;
+    right: 30px;
+    border-radius: 20px;
+}
+
+.section-yellow::before {
+    background-image: url('/z_img/img_fondo/11.png');
+    top: 20px;
+    right: 20px;
+    border-radius: 50%;
+}
+
+.section-yellow::after {
+    background-image: url('/z_img/img_fondo/12.png');
+    bottom: 20px;
+    left: 20px;
+    border-radius: 20px;
+}
+
+.section-cyan::before {
+    background-image: url('/z_img/img_fondo/13.png');
+    top: 35px;
+    left: 35px;
+    border-radius: 50%;
+}
+
+.section-cyan::after {
+    background-image: url('/z_img/img_fondo/14.png');
+    bottom: 25px;
+    right: 25px;
+    border-radius: 20px;
+}
+
+.section-indigo::before {
+    background-image: url('/z_img/img_fondo/6.png');
+    top: 40px;
+    right: 40px;
+    border-radius: 50%;
+}
+
+.section-indigo::after {
+    background-image: url('/z_img/img_fondo/9.png');
+    bottom: 30px;
+    left: 30px;
+    border-radius: 20px;
+}
+
+.section-teal::before {
+    background-image: url('/z_img/img_fondo/1.png');
+    top: 25px;
+    left: 25px;
+    border-radius: 50%;
+}
+
+.section-teal::after {
+    background-image: url('/z_img/img_fondo/4.png');
+    bottom: 35px;
+    right: 35px;
+    border-radius: 20px;
+}
+
+.section-rose::before {
+    background-image: url('/z_img/img_fondo/2.png');
+    top: 30px;
+    right: 30px;
+    border-radius: 50%;
+}
+
+.section-rose::after {
+    background-image: url('/z_img/img_fondo/10.png');
+    bottom: 40px;
+    left: 40px;
+    border-radius: 20px;
+}
+
+.section-lime::before {
+    background-image: url('/z_img/img_fondo/3.png');
+    top: 35px;
+    left: 35px;
+    border-radius: 50%;
+}
+
+.section-lime::after {
+    background-image: url('/z_img/img_fondo/5.png');
+    bottom: 25px;
+    right: 25px;
+    border-radius: 20px;
+}
+
+.section-violet::before {
+    background-image: url('/z_img/img_fondo/11.png');
+    top: 20px;
+    right: 20px;
+    border-radius: 50%;
+}
+
+.section-violet::after {
+    background-image: url('/z_img/img_fondo/13.png');
+    bottom: 20px;
+    left: 20px;
+    border-radius: 20px;
+}
+
+/* Contenido por encima de las imágenes */
+.section > * {
+    position: relative;
+    z-index: 1;
+}
+
+.section-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #1a1a1a;
+    color: #1a1a1a;
+    letter-spacing: -1px;
+}
+
+.section-subtitle {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+}
+
+.section-subtitle-mt {
+    margin-top: 60px;
+}
+
+.section-text {
+    font-size: 1.125rem;
+    margin-bottom: 20px;
+    text-align: justify;
+    line-height: 1.9;
+    color: #2d2d2d;
+    font-weight: 300;
+}
+
+.section-list {
+    margin-left: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #2d2d2d;
+    line-height: 2.2;
+}
+
+.section-list li {
+    margin-bottom: 12px;
+    font-weight: 300;
+}
+
+.section-list strong {
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.values-list {
+    margin-top: 25px;
+}
+
+.values-list p {
+    font-size: 1.125rem;
+    margin-bottom: 18px;
+    color: #2d2d2d;
+    line-height: 1.9;
+    font-weight: 300;
+}
+
+.values-list strong {
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+/* ========================================
+   TABLAS MINIMALISTAS
+======================================== */
+.table-container {
+    overflow-x: auto;
+    margin: 40px 0;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border: 2px solid #1a1a1a;
+    overflow: hidden;
+}
+
+.data-table thead tr {
+    background: #1a1a1a;
+    color: #ffffff;
+}
+
+.data-table th {
+    padding: 18px;
+    text-align: left;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-right: 1px solid #ffffff;
+}
+
+.data-table th:last-child {
+    border-right: none;
+}
+
+.data-table td {
+    padding: 16px 18px;
+    border-bottom: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5;
+    color: #2d2d2d;
+    font-weight: 300;
+}
+
+.data-table td:last-child {
+    border-right: none;
+}
+
+.data-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.data-table tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+.data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.td-bold {
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+/* Badges minimalistas */
+.badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 0;
+    font-size: 0.875rem;
+    font-weight: 700;
+    border: 2px solid;
+}
+
+.badge-high {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    border-color: #1a1a1a;
+}
+
+.badge-medium {
+    background-color: #ffffff;
+    color: #1a1a1a;
+    border-color: #1a1a1a;
+}
+
+.badge-low {
+    background-color: #f5f5f5;
+    color: #1a1a1a;
+    border-color: #9ca3af;
+}
+
+/* ========================================
+   PLACEHOLDERS DE IMÁGENES
+======================================== */
+.image-placeholder-container {
+    text-align: center;
+    margin: 50px 0;
+    padding: 30px;
+    background: #f9f9f9;
+    border: 2px solid #e5e5e5;
+}
+
+.image-placeholder {
+    max-width: 900px;
+    height: 400px;
+    margin: 0 auto;
+    border: 4px dashed #1a1a1a;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.image-placeholder:hover {
+    transform: scale(1.01);
+    background: #f9f9f9;
+    border-color: #ff6b35;
+}
+
+.placeholder-title {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: #1a1a1a;
+    margin-bottom: 15px;
+}
+
+.placeholder-subtitle {
+    font-size: 1.2rem;
+    color: #4a4a4a;
+    font-weight: 300;
+}
+
+.placeholder-note {
+    display: block;
+    margin-top: 15px;
+    font-size: 0.875rem;
+    color: #9ca3af;
+    font-style: italic;
+}
+
+/* ========================================
+   TARJETAS DE DESCARGA MINIMALISTAS
+======================================== */
+.download-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin: 50px 0;
+}
+
+.wireframe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin: 50px 0;
+}
+
+.download-card {
+    background: #ffffff;
+    padding: 0;
+    text-align: center;
+    cursor: pointer;
+    border: 3px solid #1a1a1a;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.download-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    border-color: #ff6b35;
+}
+
+.download-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 3px solid #1a1a1a;
+    filter: grayscale(20%);
+    transition: filter 0.3s ease;
+}
+
+.download-card:hover .download-image {
+    filter: grayscale(0%);
+}
+
+.download-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 25px 20px 15px 20px;
+}
+
+.download-desc {
+    font-size: 0.95rem;
+    color: #6b7280;
+    margin: 0 20px 20px 20px;
+    font-weight: 300;
+}
+
+.download-action {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ff6b35;
+    margin: 20px;
+}
+
+/* ========================================
+   PALETA DE COLORES
+======================================== */
+.color-palette {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin: 40px 0;
+}
+
+.color-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background: #f9f9f9;
+    border: 2px solid #e5e5e5;
+}
+
+.color-box {
+    width: 80px;
+    height: 80px;
+    border: 3px solid #1a1a1a;
+    flex-shrink: 0;
+}
+
+.color-orange {
+    background-color: #ff6b35;
+}
+
+.color-white {
+    background-color: #ffffff;
+}
+
+.color-black {
+    background-color: #000000;
+}
+
+.color-gray {
+    background-color: #1a1a1a;
+}
+
+.color-info {
+    flex-grow: 1;
+}
+
+.color-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+}
+
+.color-code {
+    font-size: 0.95rem;
+    color: #6b7280;
+    font-family: 'Courier New', monospace;
+    font-weight: 300;
+}
+
+/* ========================================
+   CAJA DE CONCLUSIÓN
+======================================== */
+.conclusion-box {
+    margin-top: 50px;
+    background: #1a1a1a;
+    padding: 50px;
+    border-left: 8px solid #ff6b35;
+    text-align: left;
+}
+
+.conclusion-text {
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: #ffffff;
+    line-height: 2;
+    margin: 0;
+}
+
+/* ========================================
+   BOTÓN DE ACCESO
+======================================== */
+.access-button-container {
+    text-align: center;
+    margin: 100px 0;
+    position: relative;
+}
+
+.access-button-glow {
+    display: none;
+}
+
+.access-button {
+    position: relative;
+    display: inline-block;
+    background: #1a1a1a;
+    color: #ffffff;
+    padding: 30px 70px;
+    border: 4px solid #1a1a1a;
+    font-size: 2rem;
+    font-weight: 900;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+}
+
+.access-button:hover {
+    background: #ff6b35;
+    border-color: #ff6b35;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* ========================================
+   FOOTER
+======================================== */
+.footer {
+    position: relative;
+    background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), 
+                      url('/z_img/perro_footer.png');
+    background-size: cover;
+    background-position: center;
+    padding: 100px 20px 60px 20px;
+    text-align: center;
+    border-top: 8px solid #ff6b35;
+    margin-top: 100px;
+}
+
+.footer-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.footer-title {
+    font-size: 3rem;
+    font-weight: 900;
+    color: #ffffff;
+    margin-bottom: 20px;
+    letter-spacing: 3px;
+}
+
+.footer-subtitle {
+    font-size: 1.6rem;
+    color: #ffffff;
+    font-weight: 300;
+    margin-bottom: 15px;
+}
+
+.footer-desc {
+    font-size: 1.1rem;
+    color: #e5e5e5;
+    margin-bottom: 40px;
+    font-weight: 300;
+}
+
+.footer-info {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.2);
+    padding: 40px;
+    margin: 40px 0;
+}
+
+.footer-info-item {
+    font-size: 1.1rem;
+    color: #ffffff;
+    margin: 12px 0;
+    font-weight: 300;
+}
+
+.footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 50px 0;
+}
+
+.social-icon {
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.3);
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    background: #ff6b35;
+    border-color: #ff6b35;
+    transform: scale(1.1);
+}
+
+.footer-copyright {
+    border-top: 2px solid rgba(255,255,255,0.2);
+    padding-top: 30px;
+    margin-top: 30px;
+}
+
+.footer-copyright p {
+    font-size: 1rem;
+    font-weight: 300;
+    color: #e5e5e5;
+    letter-spacing: 1px;
+}
+
+/* ========================================
+   ANIMACIONES
+======================================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.8s ease;
+}
+
+.animate-fadeInDown {
+    animation: fadeInDown 0.8s ease;
+}
+
+.animate-fadeInUp {
+    animation: fadeInUp 0.8s ease;
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+@media (max-width: 768px) {
+    .header-title {
+        font-size: 3rem;
+    }
+
+    .header-subtitle {
+        font-size: 1.5rem;
+    }
+
+    .section {
+        padding: 50px 30px;
+    }
+
+    .section::before,
+    .section::after {
+        width: 150px;
+        height: 150px;
+    }
+
+    .section-title {
+        font-size: 2.2rem;
+    }
+
+    .section-subtitle {
+        font-size: 1.6rem;
+    }
+
+    .section-text {
+        font-size: 1rem;
+    }
+
+    .data-table {
+        font-size: 0.85rem;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 12px;
+    }
+
+    .access-button {
+        font-size: 1.4rem;
+        padding: 25px 50px;
+    }
+
+    .color-palette {
+        grid-template-columns: 1fr;
+    }
+
+    .download-grid,
+    .wireframe-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .placeholder-title {
+        font-size: 1.6rem;
+    }
+
+    .conclusion-text {
+        font-size: 1.3rem;
+    }
+
+    .footer-title {
+        font-size: 2.2rem;
+    }
+
+    .color-box {
+        width: 60px;
+        height: 60px;
+    }
+}
