@@ -46,12 +46,23 @@ if (loginForm) {
 
       if (respuesta.ok) {
         console.log("Logeo exitoso. Guardando datos...");
-        if (errorEl) {
-          errorEl.style.color = '#10b981';
-          errorEl.textContent = '¡Inicio de sesión correcto!';
+        console.log("Datos del servidor:", resultado);
+
+        // ⚠️ VALIDACIÓN NUEVA: Te avisará si el backend no manda el id_persona
+        if (!resultado.id_persona) {
+          alert("ALERTA DE DESARROLLO: El login fue exitoso, pero tu backend NO devolvió 'id_persona'. Por esto la edición de perfil fallará. ¡Revisa la consulta SQL en tu servidor Node!");
         }
 
-        // GUARDAMOS EN AMBOS POR SI ACASO OTROS SCRIPTS USAN SESSIONSTORAGE
+        // Se guarda en localStorage como lo espera editar_perfil
+        localStorage.setItem('usuario', JSON.stringify({
+          id_persona:      resultado.id_persona,      
+          id_usuario:      resultado.id_usuario,
+          nombre_completo: resultado.nombre_completo,
+          correo:          resultado.correo,
+          foto_url:        resultado.foto_url || null
+        }));
+
+        // Se guarda por separado por si otros scripts lo requieren
         localStorage.setItem('id_usuario', resultado.id_usuario);
         localStorage.setItem('nombre_usuario', resultado.nombre_completo);
         localStorage.setItem('tipo_usuario', resultado.tipo_usuario);
@@ -61,7 +72,8 @@ if (loginForm) {
         sessionStorage.setItem('tipo_usuario', resultado.tipo_usuario);
 
         setTimeout(() => {
-          window.location.href = '/Dueno_de_Perro/menu_duenoperro.html';
+          // Asegúrate de que la ruta coincida exactamente con las mayúsculas y minúsculas de tus carpetas
+          window.location.href = '/Dueno_de_perro/menu_duenoperro.html';
         }, 1000);
 
       } else {

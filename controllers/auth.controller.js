@@ -13,13 +13,14 @@ const login = async (req, res) => {
     }
 
     try {
-        // Traemos persona + usuario + tipo en un solo query
+        // Traemos persona + usuario + tipo + FOTO en un solo query
         const [rows] = await db.query(`
             SELECT
                 p.id_persona,
                 p.nombre_completo,
                 p.correo,
                 p.contrasena_hash,
+                p.foto_url,
                 u.id_usuario,
                 u.id_tipo_usuario,
                 tu.tipo AS tipo_usuario
@@ -42,16 +43,16 @@ const login = async (req, res) => {
         }
 
         // NUNCA devuelvas el hash de la contraseña al frontend
+        // Enviamos los datos "sueltos" para que coincidan con lo que espera el main.js
         res.json({
-            message: 'Login exitoso',
-            usuario: {
-                id_usuario:       persona.id_usuario,
-                id_persona:       persona.id_persona,
-                nombre_completo:  persona.nombre_completo,
-                correo:           persona.correo,
-                tipo_usuario:     persona.tipo_usuario,
-                id_tipo_usuario:  persona.id_tipo_usuario
-            }
+            message:          'Login exitoso',
+            id_usuario:       persona.id_usuario,
+            id_persona:       persona.id_persona,
+            nombre_completo:  persona.nombre_completo,
+            correo:           persona.correo,
+            foto_url:         persona.foto_url,
+            tipo_usuario:     persona.tipo_usuario,
+            id_tipo_usuario:  persona.id_tipo_usuario
         });
 
     } catch (err) {
