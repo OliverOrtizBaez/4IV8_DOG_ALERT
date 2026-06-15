@@ -230,7 +230,16 @@ document.addEventListener('DOMContentLoaded', () => {
           alert('¡Mascota registrada exitosamente!');
           window.location.href = './registrar_mascota.html';
         } else {
-          formError.textContent = resultado.error || 'Ocurrió un error en el servidor al guardar la mascota.';
+          // Extraemos los errores exactos que manda tu middleware validador.js
+          const mensajeValidacion = resultado.errores 
+            ? resultado.errores.map(e => e.msg).join('\n') 
+            : resultado.mensaje || 'Ocurrió un error en el servidor al guardar la mascota.';
+
+          // Mostramos la alerta real de rechazo
+          alert("Bloqueo de seguridad o validación:\n" + mensajeValidacion);
+
+          // Mostramos el texto rojo abajo del botón
+          formError.textContent = mensajeValidacion;
           formError.classList.remove('hidden');
           btnGuardar.disabled = false;
           btnGuardar.innerHTML = `

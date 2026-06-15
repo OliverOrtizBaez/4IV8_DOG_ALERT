@@ -42,12 +42,21 @@ const obtenerMascotas = async (req, res) => {
 // GET /api/mascotas/usuario/:id_usuario  → mascotas de un dueño específico
 // (útil para la pantalla "Mis Mascotas" del dueño)
 const obtenerMascotasPorUsuario = async (req, res) => {
-    const { id_usuario } = req.params;
+    const id_usuario = req.params.id; 
     try {
         const [rows] = await db.query(`
             SELECT
-                m.id_mascota, m.nombre, m.ruac, m.fecha_nacimiento,
-                m.peso, m.tiene_collar,
+                m.id_mascota,
+                m.nombre,
+                m.ruac,
+                m.fecha_nacimiento,
+                m.peso,
+                m.tiene_collar,
+                m.sexo,
+                m.senas_particulares,
+                m.foto,
+                DATE_FORMAT(m.created_at, '%d/%m/%Y') AS fechaRegistro,
+                TIMESTAMPDIFF(YEAR, m.fecha_nacimiento, CURDATE()) AS edad,
                 r.nombre      AS raza,
                 p.color       AS color_pelaje,
                 tp.tipo       AS tipo_pelaje,
@@ -61,6 +70,7 @@ const obtenerMascotasPorUsuario = async (req, res) => {
             LEFT JOIN catalogo_ojos o           ON m.id_ojos        = o.id_ojos
             WHERE m.id_usuario = ? AND m.activo = 1
         `, [id_usuario]);
+        res.set('Cache-Control', 'no-store');
         res.json(rows);
     } catch (err) {
         console.error('obtenerMascotasPorUsuario:', err);
@@ -75,7 +85,12 @@ const crearMascota = async (req, res) => {
     const {
         id_usuario, nombre,
         fecha_nacimiento, id_raza, id_pelaje, id_tamano,
-        id_ojos, id_tipo_pelaje, peso, tiene_collar, ruac
+        id_ojos, id_tipo_pelaje, peso,
+        collar,          // ← antes era "tiene_collar", el frontend manda "collar"
+        ruac,
+        sexo,            // ← campo nuevo que faltaba leer
+        senas_particulares, // ← campo nuevo que faltaba leer
+        foto             // ← foto en base64 que faltaba leer
     } = req.body;
 
     if (!id_usuario || !nombre) {
@@ -87,19 +102,23 @@ const crearMascota = async (req, res) => {
         const [result] = await db.query(`
             INSERT INTO mascota
                 (id_usuario, nombre, fecha_nacimiento, id_raza, id_pelaje,
-                 id_tamano, id_ojos, id_tipo_pelaje, peso, tiene_collar, ruac)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                 id_tamano, id_ojos, id_tipo_pelaje, peso, tiene_collar, ruac,
+                 sexo, senas_particulares, foto)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `, [
             id_usuario, nombre,
-            fecha_nacimiento  || null,
-            id_raza           || null,
-            id_pelaje         || null,
-            id_tamano         || null,
-            id_ojos           || null,
-            id_tipo_pelaje    || null,
-            peso              || null,
-            tiene_collar ? 1 : 0,
-            ruac              || null
+            fecha_nacimiento    || null,
+            id_raza             || null,
+            id_pelaje           || null,
+            id_tamano           || null,
+            id_ojos             || null,
+            id_tipo_pelaje      || null,
+            peso                || null,
+            collar ? 1 : 0,     // ← ahora lee "collar" correctamente
+            ruac                || null,
+            sexo                || null,
+            senas_particulares  || null,
+            foto                || null
         ]);
         res.status(201).json({
             message:    'Mascota registrada exitosamente',
@@ -109,7 +128,7 @@ const crearMascota = async (req, res) => {
         if (err.code === 'ER_DUP_ENTRY') {
             return res.status(409).json({ error: 'El RUAC ya está registrado' });
         }
-        console.error('crearMascota:', err);
+        console.error('❌ crearMascota:', err);
         res.status(500).json({ error: 'Error al registrar mascota' });
     }
 };

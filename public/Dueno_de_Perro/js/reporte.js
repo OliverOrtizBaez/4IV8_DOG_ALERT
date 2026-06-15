@@ -1,5 +1,4 @@
-
-  // ══════════════════════════════════════════
+// ══════════════════════════════════════════
   //  ESTADO
   // ══════════════════════════════════════════
   const state = {
@@ -14,7 +13,7 @@
   // ══════════════════════════════════════════
   //  UTILS localStorage
   // ══════════════════════════════════════════
-  function getMascotas() {
+  function getMascotasLocales() {
     try { return JSON.parse(localStorage.getItem('dog_alert_mascotas') || '[]'); }
     catch { return []; }
   }
@@ -86,15 +85,39 @@
   });
 
   // ══════════════════════════════════════════
-  //  PASO 1 — LISTA DE MASCOTAS
+  //  PASO 1 — LISTA DE MASCOTAS (consulta la API)
   // ══════════════════════════════════════════
-  function renderListaMascotas() {
-    const mascotas = getMascotas();
+  async function renderListaMascotas() {
+    const idUsuario = localStorage.getItem('id_usuario') || sessionStorage.getItem('id_usuario');
+    const container = document.getElementById('lista-mascotas');
     const reportesActivos = getReportes()
       .filter(r => r.estado === 'activo')
       .map(r => r.mascotaId);
 
-    const container = document.getElementById('lista-mascotas');
+    let mascotas = [];
+
+    try {
+      const respuesta = await fetch(`/api/mascotas/usuario/${idUsuario}`);
+      if (respuesta.ok) {
+        const datos = await respuesta.json();
+        // Normalizamos los campos para que el resto del script funcione igual
+        mascotas = datos.map(m => ({
+          id:     m.id_mascota,
+          nombre: m.nombre,
+          raza:   m.raza    || 'Sin raza',
+          ruac:   m.ruac    || 'SIN RUAC',
+          foto:   m.foto    || null,
+          peso:   m.peso,
+          sexo:   m.sexo,
+          tamano: m.tamano
+        }));
+      } else {
+        mascotas = getMascotasLocales();
+      }
+    } catch {
+      console.warn("Cargando desde el almacenamiento local del navegador.");
+      mascotas = getMascotasLocales();
+    }
 
     if (mascotas.length === 0) {
       container.innerHTML = `
@@ -139,8 +162,8 @@
     // Eventos click
     container.querySelectorAll('.pet-row:not(:disabled)').forEach(btn => {
       btn.addEventListener('click', () => {
-        const id = btn.dataset.id;
-        state.mascota = getMascotas().find(m => m.id === id);
+        const id = parseInt(btn.dataset.id);
+        state.mascota = mascotas.find(m => m.id === id);
         irAPaso2();
       });
     });
