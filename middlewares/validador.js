@@ -234,18 +234,23 @@ const reglasValidacion = {
     ],
 
     '/reportes-alerta': [
+        body('id_mascota')
+            .exists({ checkFalsy: true }).withMessage('Debes seleccionar una mascota')
+            .isInt({ min: 1 }).withMessage('El id_mascota debe ser un número válido'),
+
         body('comentarios')
             .optional({ nullable: true, checkFalsy: true })
             .trim()
             .isLength({ min: 10, max: 1000 }).withMessage('Los comentarios deben tener entre 10 y 1000 caracteres'),
 
-        body('id_mascota')
-            .exists({ checkFalsy: true }).withMessage('Debes seleccionar una mascota')
-            .isInt({ min: 1 }).withMessage('El id_mascota debe ser un número válido'),
+        // Eliminamos id_ubicacion_extravio y aceptamos los textos que necesita el controlador
+        body('calle').optional({ nullable: true, checkFalsy: true }).isString(),
+        body('colonia').optional({ nullable: true, checkFalsy: true }).isString(),
+        body('alcaldia').optional({ nullable: true, checkFalsy: true }).isString(),
+        body('codigo_postal').optional({ nullable: true, checkFalsy: true }).isString(),
 
-        body('id_ubicacion_extravio')
-            .exists({ checkFalsy: true }).withMessage('Debes seleccionar una ubicación')
-            .isInt({ min: 1 }).withMessage('El id_ubicacion_extravio debe ser un número válido'),
+        // Agregamos validación opcional para recompensa
+        body('recompensa').optional({ nullable: true, checkFalsy: true }).isNumeric(),
 
         body('fecha_expedicion')
             .exists({ checkFalsy: true }).withMessage('La fecha de expedición es obligatoria')
